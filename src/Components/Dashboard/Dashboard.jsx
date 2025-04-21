@@ -205,7 +205,7 @@ const Dashboard = () => {
                 </div>
                 <div className="text-start">
                   <p className="text-xs lg:text-base xl:text-2xl text-primary-color mb-1">
-                    Total Tenant
+                    Total Users
                   </p>
                   <p className="text-sm lg:text-base xl:text-3xl font-medium text-primary-color">
                     {/* {allCustomer?.data?.allCustomerCount} */} 10

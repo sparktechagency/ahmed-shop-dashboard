@@ -4,7 +4,6 @@ import Main from "../Layout/Main";
 import DashboardLayout from "../Layout/DashboardLayout";
 
 import Dashboard from "../Dashboard/Dashboard";
-// import AllUsers from "../Dashboard/Users/Users";
 
 import Profile from "../../Pages/Profile/Profile";
 import EditProfile from "../../Pages/Profile/EditProfile";
@@ -14,16 +13,15 @@ import UpdatePassword from "../../Pages/Auth/UpdatePassword";
 import OtpPage from "../../Pages/Auth/OtpPage";
 import Logout from "../Dashboard/Logout";
 
-import AboutUs from "../Dashboard/AboutUs";
+import AboutUs from "../Dashboard/Settings/AboutUs";
 
 import Notifications from "../Dashboard/Notifications";
-import TermsAndConditions from "../Dashboard/Terms&Conditions";
-import Announcement from "../Dashboard/Announcement";
-import ChangePassword from "../Dashboard/ChangePassword";
-import PrivacyPolicy from "../Dashboard/PrivacyPolicy";
-import Properties from "../Dashboard/Properties";
-import Landlord from "../Dashboard/Users/Landlord";
-import Tenant from "../Dashboard/Users/Tenant";
+import TermsAndConditions from "../Dashboard/Settings/Terms&Conditions";
+import Announcement from "../Dashboard/Products";
+import ChangePassword from "../Dashboard/Settings/ChangePassword";
+import PrivacyPolicy from "../Dashboard/Settings/PrivacyPolicy";
+import Users from "../Dashboard/Users/Users";
+import Settings from "../Dashboard/Settings/Settings";
 
 //
 
@@ -61,26 +59,17 @@ const router = createBrowserRouter([
             element: <Dashboard />,
           },
           {
-            path: "/landlord",
-            element: <Landlord />,
+            path: "users",
+            element: <Users />,
           },
-          {
-            path: "/tenant",
-            element: <Tenant />,
-          },
-          // {
-          //   path: "",
-          //   element: <AllUsers />,
-          //   children: [],
-          // },
 
           {
-            path: "announcement",
+            path: "products",
             element: <Announcement />,
           },
           {
-            path: "properties",
-            element: <Properties />,
+            path: "settings",
+            element: <Settings />,
           },
           {
             path: "terms-and-condition",

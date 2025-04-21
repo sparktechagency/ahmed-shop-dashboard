@@ -12,16 +12,13 @@ import Topbar from "../Shared/Topbar";
 // import logout from "../../../public/images/dashboard-logo/logout.svg";
 
 import { MdOutlineDashboard } from "react-icons/md";
-import { BsFillHousesFill } from "react-icons/bs";
-// import { FaUsers } from "react-icons/fa";
 import { GrAnnounce } from "react-icons/gr";
 import { VscTerminalUbuntu } from "react-icons/vsc";
 import { SiGnuprivacyguard } from "react-icons/si";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { TbPasswordUser } from "react-icons/tb";
 import { VscSignOut } from "react-icons/vsc";
-import { FaBuildingUser } from "react-icons/fa6";
-import { FaUserTag } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
 
 import {
   Link,
@@ -79,45 +76,20 @@ const DashboardLayout = () => {
       ),
     },
     {
-      key: "properties",
-      icon: <BsFillHousesFill size={25} backgroundColor="white" />,
+      key: "users",
+      icon: <FaRegUser size={25} backgroundColor="white" />,
       label: (
-        <NavLink className="font-semibold" to="properties">
-          Properties
+        <NavLink className="font-semibold" to="users">
+          Users
         </NavLink>
       ),
     },
     {
-      key: "landlord",
-      icon: <FaBuildingUser size={25} backgroundColor="white" />,
-      label: (
-        <NavLink className="font-semibold" to="landlord">
-          Landlord
-        </NavLink>
-      ),
-    },
-    {
-      key: "tenant",
-      icon: <FaUserTag size={25} backgroundColor="white" />,
-      label: (
-        <NavLink className="font-semibold" to="tenant">
-          Tenant
-        </NavLink>
-      ),
-    },
-    // {
-    //   key: "users",
-    //   label: <span className="text-white font-semibold">Users</span>,
-    //   icon: <FaUsers size={25} />,
-    //   children: [],
-    // },
-
-    {
-      key: "announcement",
+      key: "products",
       icon: <GrAnnounce size={25} />,
       label: (
-        <NavLink className="font-semibold" to="announcement">
-          Announcement
+        <NavLink className="font-semibold" to="products">
+          Products
         </NavLink>
       ),
     },

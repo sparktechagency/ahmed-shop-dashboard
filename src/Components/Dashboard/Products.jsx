@@ -16,7 +16,7 @@ import {
 } from "@ant-design/icons";
 import axios from "axios";
 
-const Announcement = () => {
+const Products = () => {
   const [announcements, setAnnouncements] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
@@ -175,9 +175,7 @@ const Announcement = () => {
     >
       <div className="p-5 h-screen">
         <div className="flex items-center justify-between mb-5">
-          <h1 className="text-3xl font-bold text-[#333]">
-            Announcements
-          </h1>
+          <h1 className="text-3xl font-bold text-[#333]">Announcements</h1>
           <div className="flex items-center gap-2">
             <Button
               type="primary"
@@ -300,4 +298,4 @@ const Announcement = () => {
   );
 };
 
-export default Announcement;
+export default Products;
