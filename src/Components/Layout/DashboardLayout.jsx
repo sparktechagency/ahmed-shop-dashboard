@@ -12,16 +12,15 @@ import Topbar from "../Shared/Topbar";
 // import logout from "../../../public/images/dashboard-logo/logout.svg";
 
 import { MdOutlineDashboard } from "react-icons/md";
-import { BsFillHousesFill } from "react-icons/bs";
-// import { FaUsers } from "react-icons/fa";
 import { GrAnnounce } from "react-icons/gr";
 import { VscTerminalUbuntu } from "react-icons/vsc";
 import { SiGnuprivacyguard } from "react-icons/si";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { TbPasswordUser } from "react-icons/tb";
 import { VscSignOut } from "react-icons/vsc";
-import { FaBuildingUser } from "react-icons/fa6";
-import { FaUserTag } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
+import { FaUsersLine } from "react-icons/fa6";
+import { PiUserFill } from "react-icons/pi";
 
 import {
   Link,
@@ -79,45 +78,34 @@ const DashboardLayout = () => {
       ),
     },
     {
-      key: "properties",
-      icon: <BsFillHousesFill size={25} backgroundColor="white" />,
+      key: "users",
+      icon: <FaUsersLine size={25} backgroundColor="white" color="white" />,
       label: (
-        <NavLink className="font-semibold" to="properties">
-          Properties
+        <NavLink className="text-white font-semibold" to="users">
+          Users
         </NavLink>
       ),
+      children: [
+        {
+          key: "seller",
+          icon: <FaRegUser size={20} />,
+          // icon: <span>&#8226;</span>,
+          label: <NavLink to="seller">Seller</NavLink>,
+        },
+        {
+          key: "customers",
+          icon: <PiUserFill size={20} />,
+          // icon: <span>&#8226;</span>,
+          label: <NavLink to="customers">Customer</NavLink>,
+        },
+      ],
     },
     {
-      key: "landlord",
-      icon: <FaBuildingUser size={25} backgroundColor="white" />,
-      label: (
-        <NavLink className="font-semibold" to="landlord">
-          Landlord
-        </NavLink>
-      ),
-    },
-    {
-      key: "tenant",
-      icon: <FaUserTag size={25} backgroundColor="white" />,
-      label: (
-        <NavLink className="font-semibold" to="tenant">
-          Tenant
-        </NavLink>
-      ),
-    },
-    // {
-    //   key: "users",
-    //   label: <span className="text-white font-semibold">Users</span>,
-    //   icon: <FaUsers size={25} />,
-    //   children: [],
-    // },
-
-    {
-      key: "announcement",
+      key: "products",
       icon: <GrAnnounce size={25} />,
       label: (
-        <NavLink className="font-semibold" to="announcement">
-          Announcement
+        <NavLink className="font-semibold" to="products">
+          Products
         </NavLink>
       ),
     },
@@ -213,7 +201,7 @@ const DashboardLayout = () => {
           collapsible
           collapsed={collapsed}
           style={{
-            background: "#222021",
+            background: "#0080FF",
             // boxShadow: "0px 0px 5px #00000040",
             // position: "sticky",
             overflowY: "auto",
@@ -254,7 +242,7 @@ const DashboardLayout = () => {
         <Layout>
           <Header
             style={{
-              background: "#222021",
+              background: "#0080FF",
               position: "sticky",
               top: 0,
               zIndex: 99999,

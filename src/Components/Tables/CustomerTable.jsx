@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import { GoEye } from "react-icons/go";
 import { getImageUrl } from "../../utils/baseUrl";
 
-const TenantTable = ({
+const CustomerTable = ({
   data,
   loading,
   showCustomerViewModal,
@@ -19,7 +19,7 @@ const TenantTable = ({
       key: "id",
       align: "center",
       responsive: ["md"],
-      render: (_, __, index) => index + 1, // Serial number based on row index
+      render: (_, __, index) => index + 1,
     },
     {
       title: "Full Name",
@@ -57,9 +57,15 @@ const TenantTable = ({
       align: "center",
       render: (date) => (date ? dayjs(date).format("DD-MM-YYYY") : "-"),
     },
-
     {
-      title: "Action",
+      title: "Owned Properties",
+      dataIndex: "ownedProperties",
+      key: "ownedProperties",
+      align: "center",
+      render: (ownedProperties) => ownedProperties?.length || 0,
+    },
+    {
+      title: "Details",
       key: "action",
       align: "center",
       render: (_, record) => (
@@ -121,4 +127,4 @@ const TenantTable = ({
   );
 };
 
-export default TenantTable;
+export default CustomerTable;

@@ -3,12 +3,11 @@ import { useState, useMemo, useEffect } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import DeleteUserModal from "../../UI/DeleteUserModal";
-// import { useAllUsersQuery } from "../../../Redux/api/userApi";
-import LandlordTable from "../../Tables/LandlordTable";
-import axios from "axios";
 import ViewUserModal from "../../UI/ViewUserModal";
+import axios from "axios";
+import SellerTable from "../../Tables/SellerTable";
 
-export default function Landlord() {
+export default function Seller() {
   // eslint-disable-next-line no-unused-vars
   // const { data: allUsers, loadingUser, refetch } = useAllUsersQuery();
   // const userData = allUsers?.data;
@@ -27,11 +26,12 @@ export default function Landlord() {
 
   const [userData, setUserData] = useState([]);
   const [loadingUser, setLoadingUser] = useState(false);
+
   useEffect(() => {
     const fetchUserData = async () => {
       setLoadingUser(true);
       try {
-        const response = await axios.get("data/landLordData.json");
+        const response = await axios.get("data/sellerData.json");
         console.log(response.data);
         setUserData(response.data);
       } catch (error) {
@@ -55,7 +55,7 @@ export default function Landlord() {
     setSearchText(value);
   };
 
-  const showCustomerViewModal = (record) => {
+  const showViewSellerModal = (record) => {
     console.log(record);
     setCurrentRecord(record);
     setIsViewCustomer(true);
@@ -89,15 +89,15 @@ export default function Landlord() {
         <div className="flex justify-between p-6">
           <div className="flex items-center gap-3">
             <h1 className="text-3xl font-bold text-secondary-color">
-              Landlord List
+              Seller List
             </h1>
           </div>
           <div className="flex gap-4 items-center">
             <Input
-              placeholder="Search Landlord..."
+              placeholder="Search Seller..."
               value={searchText}
               onChange={(e) => onSearch(e.target.value)}
-              className="text-base font-semibold !border-[#222021] py-2"
+              className="text-base font-semibold !border-gray-500 py-2"
               prefix={
                 <SearchOutlined className="text-[#222222] font-bold text-lg mr-2" />
               }
@@ -105,10 +105,10 @@ export default function Landlord() {
           </div>
         </div>
         <div className="px-2 lg:px-6">
-          <LandlordTable
+          <SellerTable
             data={filteredData}
             loading={loadingUser}
-            showCustomerViewModal={showCustomerViewModal}
+            showCustomerViewModal={showViewSellerModal}
             showDeleteModal={showDeleteModal}
             pageSize={8}
           />

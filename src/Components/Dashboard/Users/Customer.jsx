@@ -1,17 +1,17 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 
 import { SearchOutlined } from "@ant-design/icons";
 import { Input } from "antd";
-import UsersTable from "../../Tables/UsersTable";
+import UsersTable from "../../Tables/SellerTable";
 import DeleteUserModal from "../../UI/DeleteUserModal";
-import ViewCustomerModal from "../../UI/ViewCustomerModal";
-import { useAllUsersQuery } from "../../../Redux/api/userApi";
+import ViewUserModal from "../../UI/ViewUserModal";
+import axios from "axios";
 
-export default function AllUsers() {
+export default function Customer() {
   // eslint-disable-next-line no-unused-vars
-  const { data: allUsers, loadingUser, refetch } = useAllUsersQuery();
-  const userData = allUsers?.data;
-  console.log(userData);
+  // const { data: allUsers, loadingUser, refetch } = useAllUsersQuery();
+  // const userData = allUsers?.data;
+  // console.log(userData);
   //* Store Search Value
   const [searchText, setSearchText] = useState("");
 
@@ -23,6 +23,26 @@ export default function AllUsers() {
 
   //* It's Use to Set Seclected User to delete and view
   const [currentRecord, setCurrentRecord] = useState(null);
+
+  const [userData, setUserData] = useState([]);
+  const [loadingUser, setLoadingUser] = useState(false);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      setLoadingUser(true);
+      try {
+        const response = await axios.get("data/customerData.json");
+        console.log(response.data);
+        setUserData(response.data);
+      } catch (error) {
+        console.error("Error fetching landlord data", error);
+      } finally {
+        setLoadingUser(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const filteredData = useMemo(() => {
     if (!searchText) return userData;
@@ -69,15 +89,15 @@ export default function AllUsers() {
         <div className="flex justify-between p-6">
           <div className="flex items-center gap-3">
             <h1 className="text-3xl font-bold text-secondary-color">
-              User List
+              Customer List
             </h1>
           </div>
           <div className="flex gap-4 items-center">
             <Input
-              placeholder="Search User..."
+              placeholder="Search Customer..."
               value={searchText}
               onChange={(e) => onSearch(e.target.value)}
-              className="text-base font-semibold !border-input-color py-2"
+              className="text-base font-semibold !border-gray-500 py-2"
               prefix={
                 <SearchOutlined className="text-[#222222] font-bold text-lg mr-2" />
               }
@@ -94,7 +114,7 @@ export default function AllUsers() {
           />
         </div>
 
-        <ViewCustomerModal
+        <ViewUserModal
           isViewCustomer={isViewCustomer}
           handleCancel={handleCancel}
           currentRecord={currentRecord}

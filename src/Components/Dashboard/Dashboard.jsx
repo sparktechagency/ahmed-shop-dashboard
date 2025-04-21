@@ -194,7 +194,7 @@ const Dashboard = () => {
         <div>
           {/* Card Items */}
           <div className="flex items-center gap-5 mt-8 w-full">
-            <div className="flex gap-5 flex-wrap rounded-lg bg-[#222021] border border-[#808080] py-2 px-1 lg:p-5 items-center flex-1">
+            <div className="flex gap-5 flex-wrap rounded-lg bg-[#2774c2] border border-[#808080] py-2 px-1 lg:p-5 items-center flex-1">
               <div className="flex gap-2 xl:gap-4 items-center">
                 <div className="p-3 w-fit">
                   <img
@@ -205,7 +205,7 @@ const Dashboard = () => {
                 </div>
                 <div className="text-start">
                   <p className="text-xs lg:text-base xl:text-2xl text-primary-color mb-1">
-                    Total Tenant
+                    Total Users
                   </p>
                   <p className="text-sm lg:text-base xl:text-3xl font-medium text-primary-color">
                     {/* {allCustomer?.data?.allCustomerCount} */} 10
@@ -213,7 +213,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="flex gap-5 flex-wrap rounded-lg bg-[#222021] border border-[#808080] py-2 px-1 xl:p-5 items-center  flex-1">
+            <div className="flex gap-5 flex-wrap rounded-lg bg-[#2774c2] border border-[#808080] py-2 px-1 xl:p-5 items-center  flex-1">
               <div className="flex gap-2 xl:gap-4 items-center">
                 <div className="p-3  w-fit">
                   {/* <img src={AllIcons.person} className="h-10 w-10" alt="" /> */}
@@ -229,7 +229,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="flex gap-5 flex-wrap rounded-lg bg-[#222021] border border-[#808080] py-2 px-1 xl:p-5 items-center  flex-1">
+            <div className="flex gap-5 flex-wrap rounded-lg bg-[#2774c2] border border-[#808080] py-2 px-1 xl:p-5 items-center  flex-1">
               <div className="flex gap-2 xl:gap-4 items-center">
                 <div className="p-3  w-fit">
                   {/* <img src={AllIcons.person} className="h-10 w-10" alt="" /> */}
@@ -245,7 +245,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="flex gap-5 flex-wrap rounded-lg bg-[#222021] border border-[#808080] py-2 px-1 xl:p-5 items-center  flex-1">
+            <div className="flex gap-5 flex-wrap rounded-lg bg-[#2774c2] border border-[#808080] py-2 px-1 xl:p-5 items-center  flex-1">
               <div className="flex gap-2 xl:gap-4 items-center">
                 <div className="p-3  w-fit">
                   {/* <img src={AllIcons.person} className="h-10 w-10" alt="" /> */}
