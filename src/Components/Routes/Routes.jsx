@@ -20,8 +20,9 @@ import TermsAndConditions from "../Dashboard/Settings/Terms&Conditions";
 import Announcement from "../Dashboard/Products";
 import ChangePassword from "../Dashboard/Settings/ChangePassword";
 import PrivacyPolicy from "../Dashboard/Settings/PrivacyPolicy";
-import Users from "../Dashboard/Users/Users";
 import Settings from "../Dashboard/Settings/Settings";
+import Customer from "../Dashboard/Users/Customer";
+import Seller from "../Dashboard/Users/Seller";
 
 //
 
@@ -59,8 +60,12 @@ const router = createBrowserRouter([
             element: <Dashboard />,
           },
           {
-            path: "users",
-            element: <Users />,
+            path: "customers",
+            element: <Customer />,
+          },
+          {
+            path: "seller",
+            element: <Seller />,
           },
 
           {

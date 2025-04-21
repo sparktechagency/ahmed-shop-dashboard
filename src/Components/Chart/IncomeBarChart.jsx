@@ -55,7 +55,7 @@ const IncomeBarChart = ({ selectedYear }) => {
           <Bar
             name="Income"
             dataKey="income"
-            fill="#222021"
+            fill="#2774c2"
             barSize={20}
             radius={[10, 10, 0, 0]}
           />

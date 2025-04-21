@@ -2,12 +2,12 @@ import { useState, useMemo, useEffect } from "react";
 
 import { SearchOutlined } from "@ant-design/icons";
 import { Input } from "antd";
-import UsersTable from "../../Tables/UsersTable";
+import UsersTable from "../../Tables/SellerTable";
 import DeleteUserModal from "../../UI/DeleteUserModal";
 import ViewUserModal from "../../UI/ViewUserModal";
 import axios from "axios";
 
-export default function Users() {
+export default function Customer() {
   // eslint-disable-next-line no-unused-vars
   // const { data: allUsers, loadingUser, refetch } = useAllUsersQuery();
   // const userData = allUsers?.data;
@@ -31,7 +31,7 @@ export default function Users() {
     const fetchUserData = async () => {
       setLoadingUser(true);
       try {
-        const response = await axios.get("data/landLordData.json");
+        const response = await axios.get("data/customerData.json");
         console.log(response.data);
         setUserData(response.data);
       } catch (error) {
@@ -89,12 +89,12 @@ export default function Users() {
         <div className="flex justify-between p-6">
           <div className="flex items-center gap-3">
             <h1 className="text-3xl font-bold text-secondary-color">
-              User List
+              Customer List
             </h1>
           </div>
           <div className="flex gap-4 items-center">
             <Input
-              placeholder="Search User..."
+              placeholder="Search Customer..."
               value={searchText}
               onChange={(e) => onSearch(e.target.value)}
               className="text-base font-semibold !border-gray-500 py-2"

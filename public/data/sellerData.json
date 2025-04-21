@@ -1,0 +1,242 @@
+[
+  {
+    "seller_id": "1",
+    "name": "Fresh Groceries Mart",
+    "contact": {
+      "phone": "+1-555-1234",
+      "email": "freshgroceries@example.com"
+    },
+    "address": {
+      "street": "123 Green Lane",
+      "city": "Springfield",
+      "state": "IL",
+      "zip": "62701"
+    },
+    "products": [
+      {
+        "product_id": "101",
+        "name": "Tomatoes",
+        "category": "Vegetables",
+        "price": 2.99,
+        "unit": "kg",
+        "stock": 50
+      },
+      {
+        "product_id": "102",
+        "name": "Potatoes",
+        "category": "Vegetables",
+        "price": 1.49,
+        "unit": "kg",
+        "stock": 100
+      },
+      {
+        "product_id": "103",
+        "name": "Carrots",
+        "category": "Vegetables",
+        "price": 1.99,
+        "unit": "kg",
+        "stock": 75
+      },
+      {
+        "product_id": "104",
+        "name": "Onions",
+        "category": "Vegetables",
+        "price": 1.69,
+        "unit": "kg",
+        "stock": 60
+      },
+      {
+        "product_id": "105",
+        "name": "Garlic",
+        "category": "Vegetables",
+        "price": 3.99,
+        "unit": "kg",
+        "stock": 40
+      },
+      {
+        "product_id": "106",
+        "name": "Broccoli",
+        "category": "Vegetables",
+        "price": 2.49,
+        "unit": "kg",
+        "stock": 35
+      },
+      {
+        "product_id": "107",
+        "name": "Lettuce",
+        "category": "Vegetables",
+        "price": 1.79,
+        "unit": "kg",
+        "stock": 80
+      }
+    ]
+  },
+  {
+    "seller_id": "2",
+    "name": "Organic Greens",
+    "contact": {
+      "phone": "+1-555-5678",
+      "email": "organicgreens@example.com"
+    },
+    "address": {
+      "street": "456 Nature Rd",
+      "city": "Greenwich",
+      "state": "CT",
+      "zip": "06830"
+    },
+    "products": [
+      {
+        "product_id": "201",
+        "name": "Organic Spinach",
+        "category": "Vegetables",
+        "price": 3.49,
+        "unit": "kg",
+        "stock": 30
+      },
+      {
+        "product_id": "202",
+        "name": "Organic Kale",
+        "category": "Vegetables",
+        "price": 4.99,
+        "unit": "kg",
+        "stock": 40
+      },
+      {
+        "product_id": "203",
+        "name": "Organic Cucumbers",
+        "category": "Vegetables",
+        "price": 2.79,
+        "unit": "kg",
+        "stock": 60
+      },
+      {
+        "product_id": "204",
+        "name": "Organic Avocados",
+        "category": "Fruits",
+        "price": 5.99,
+        "unit": "each",
+        "stock": 25
+      },
+      {
+        "product_id": "205",
+        "name": "Organic Apples",
+        "category": "Fruits",
+        "price": 3.59,
+        "unit": "kg",
+        "stock": 90
+      },
+      {
+        "product_id": "206",
+        "name": "Organic Bananas",
+        "category": "Fruits",
+        "price": 2.29,
+        "unit": "kg",
+        "stock": 120
+      }
+    ]
+  },
+  {
+    "seller_id": "3",
+    "name": "The Dairy Depot",
+    "contact": {
+      "phone": "+1-555-7890",
+      "email": "dairydepot@example.com"
+    },
+    "address": {
+      "street": "789 Milk St",
+      "city": "Hometown",
+      "state": "TX",
+      "zip": "75001"
+    },
+    "products": [
+      {
+        "product_id": "301",
+        "name": "Whole Milk",
+        "category": "Dairy",
+        "price": 1.99,
+        "unit": "liter",
+        "stock": 150
+      },
+      {
+        "product_id": "302",
+        "name": "Cheddar Cheese",
+        "category": "Dairy",
+        "price": 4.49,
+        "unit": "kg",
+        "stock": 80
+      },
+      {
+        "product_id": "303",
+        "name": "Yogurt",
+        "category": "Dairy",
+        "price": 2.99,
+        "unit": "pack",
+        "stock": 100
+      },
+      {
+        "product_id": "304",
+        "name": "Butter",
+        "category": "Dairy",
+        "price": 3.49,
+        "unit": "kg",
+        "stock": 50
+      },
+      {
+        "product_id": "305",
+        "name": "Mozzarella Cheese",
+        "category": "Dairy",
+        "price": 5.99,
+        "unit": "kg",
+        "stock": 40
+      }
+    ]
+  },
+  {
+    "seller_id": "4",
+    "name": "The Snack Corner",
+    "contact": {
+      "phone": "+1-555-1234",
+      "email": "snackcorner@example.com"
+    },
+    "address": {
+      "street": "321 Snack Blvd",
+      "city": "Sunnydale",
+      "state": "CA",
+      "zip": "90210"
+    },
+    "products": [
+      {
+        "product_id": "401",
+        "name": "Chips",
+        "category": "Snacks",
+        "price": 1.99,
+        "unit": "bag",
+        "stock": 200
+      },
+      {
+        "product_id": "402",
+        "name": "Cookies",
+        "category": "Snacks",
+        "price": 3.49,
+        "unit": "pack",
+        "stock": 120
+      },
+      {
+        "product_id": "403",
+        "name": "Chocolate Bars",
+        "category": "Snacks",
+        "price": 2.49,
+        "unit": "bar",
+        "stock": 150
+      },
+      {
+        "product_id": "404",
+        "name": "Pretzels",
+        "category": "Snacks",
+        "price": 1.79,
+        "unit": "bag",
+        "stock": 90
+      }
+    ]
+  }
+]

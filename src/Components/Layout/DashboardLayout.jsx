@@ -19,6 +19,8 @@ import { BsInfoCircleFill } from "react-icons/bs";
 import { TbPasswordUser } from "react-icons/tb";
 import { VscSignOut } from "react-icons/vsc";
 import { FaRegUser } from "react-icons/fa";
+import { FaUsersLine } from "react-icons/fa6";
+import { PiUserFill } from "react-icons/pi";
 
 import {
   Link,
@@ -77,12 +79,26 @@ const DashboardLayout = () => {
     },
     {
       key: "users",
-      icon: <FaRegUser size={25} backgroundColor="white" />,
+      icon: <FaUsersLine size={25} backgroundColor="white" color="white" />,
       label: (
-        <NavLink className="font-semibold" to="users">
+        <NavLink className="text-white font-semibold" to="users">
           Users
         </NavLink>
       ),
+      children: [
+        {
+          key: "seller",
+          icon: <FaRegUser size={20} />,
+          // icon: <span>&#8226;</span>,
+          label: <NavLink to="seller">Seller</NavLink>,
+        },
+        {
+          key: "customers",
+          icon: <PiUserFill size={20} />,
+          // icon: <span>&#8226;</span>,
+          label: <NavLink to="customers">Customer</NavLink>,
+        },
+      ],
     },
     {
       key: "products",
@@ -185,7 +201,7 @@ const DashboardLayout = () => {
           collapsible
           collapsed={collapsed}
           style={{
-            background: "#222021",
+            background: "#0080FF",
             // boxShadow: "0px 0px 5px #00000040",
             // position: "sticky",
             overflowY: "auto",
@@ -226,7 +242,7 @@ const DashboardLayout = () => {
         <Layout>
           <Header
             style={{
-              background: "#222021",
+              background: "#0080FF",
               position: "sticky",
               top: 0,
               zIndex: 99999,

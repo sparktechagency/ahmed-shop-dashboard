@@ -4,7 +4,12 @@ import dayjs from "dayjs";
 import { GoEye } from "react-icons/go";
 import { getImageUrl } from "../../utils/baseUrl";
 
-const UsersTable = ({ data, loading, showCustomerViewModal, pageSize = 0 }) => {
+const CustomerTable = ({
+  data,
+  loading,
+  showCustomerViewModal,
+  pageSize = 0,
+}) => {
   const imageUrl = getImageUrl();
 
   const columns = [
@@ -122,4 +127,4 @@ const UsersTable = ({ data, loading, showCustomerViewModal, pageSize = 0 }) => {
   );
 };
 
-export default UsersTable;
+export default CustomerTable;
