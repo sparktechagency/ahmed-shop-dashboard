@@ -3,41 +3,35 @@ import { useState, useMemo, useEffect } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import DeleteUserModal from "../../UI/DeleteUserModal";
-import ViewUserModal from "../../UI/ViewUserModal";
 import axios from "axios";
 import SellerTable from "../../Tables/SellerTable";
+import ViewSellerModal from "../../UI/ViewSellerModal";
 
 export default function Seller() {
   // eslint-disable-next-line no-unused-vars
   // const { data: allUsers, loadingUser, refetch } = useAllUsersQuery();
   // const userData = allUsers?.data;
   // console.log(userData);
-  //* Store Search Value
+
   const [searchText, setSearchText] = useState("");
-
-  //* It's Use to Show Customer Modal
-  const [isViewCustomer, setIsViewCustomer] = useState(false);
-
-  //* It's Use to Show Delete Modal
+  const [isViewSeller, setIsViewSeller] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
-
-  //* It's Use to Set Seclected User to delete and view
   const [currentRecord, setCurrentRecord] = useState(null);
 
-  const [userData, setUserData] = useState([]);
-  const [loadingUser, setLoadingUser] = useState(false);
+  const [sellerData, setSellerData] = useState([]);
+  const [loadingSeller, setLoadingSeller] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
-      setLoadingUser(true);
+      setLoadingSeller(true);
       try {
         const response = await axios.get("data/sellerData.json");
         console.log(response.data);
-        setUserData(response.data);
+        setSellerData(response.data);
       } catch (error) {
         console.error("Error fetching landlord data", error);
       } finally {
-        setLoadingUser(false);
+        setLoadingSeller(false);
       }
     };
 
@@ -45,11 +39,11 @@ export default function Seller() {
   }, []);
 
   const filteredData = useMemo(() => {
-    if (!searchText) return userData;
-    return userData.filter((item) =>
+    if (!searchText) return sellerData;
+    return sellerData.filter((item) =>
       item.fullName.toLowerCase().includes(searchText.toLowerCase())
     );
-  }, [userData, searchText]);
+  }, [sellerData, searchText]);
 
   const onSearch = (value) => {
     setSearchText(value);
@@ -58,7 +52,7 @@ export default function Seller() {
   const showViewSellerModal = (record) => {
     console.log(record);
     setCurrentRecord(record);
-    setIsViewCustomer(true);
+    setIsViewSeller(true);
   };
 
   const showDeleteModal = (record) => {
@@ -73,7 +67,7 @@ export default function Seller() {
   };
 
   const handleCancel = () => {
-    setIsViewCustomer(false);
+    setIsViewSeller(false);
     setIsDeleteModalVisible(false);
   };
 
@@ -107,15 +101,15 @@ export default function Seller() {
         <div className="px-2 lg:px-6">
           <SellerTable
             data={filteredData}
-            loading={loadingUser}
-            showCustomerViewModal={showViewSellerModal}
+            loading={loadingSeller}
+            showViewSellerModal={showViewSellerModal}
             showDeleteModal={showDeleteModal}
             pageSize={8}
           />
         </div>
 
-        <ViewUserModal
-          isViewCustomer={isViewCustomer}
+        <ViewSellerModal
+          isViewSeller={isViewSeller}
           handleCancel={handleCancel}
           currentRecord={currentRecord}
           // handleBlock={handleBlock}

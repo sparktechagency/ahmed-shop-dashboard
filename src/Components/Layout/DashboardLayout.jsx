@@ -80,11 +80,7 @@ const DashboardLayout = () => {
     {
       key: "users",
       icon: <FaUsersLine size={25} backgroundColor="white" color="white" />,
-      label: (
-        <NavLink className="text-white font-semibold" to="users">
-          Users
-        </NavLink>
-      ),
+      label: <p className="text-white font-semibold">Users</p>,
       children: [
         {
           key: "seller",
@@ -221,8 +217,8 @@ const DashboardLayout = () => {
           <ConfigProvider
             theme={{
               token: {
-                colorBgBase: "#FFC0D3",
-                colorInfo: "#FFC0D3",
+                colorBgBase: "#0080FF",
+                colorInfo: "#0080FF",
               },
             }}
           >
