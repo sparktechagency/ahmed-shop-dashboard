@@ -7,7 +7,7 @@ import { useRef, useState } from "react";
 // } from "../../../Redux/api/settingsApi";
 // import { toast } from "sonner";
 
-const PrivacyPolicy = () => {
+const Faq = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
 
@@ -17,31 +17,31 @@ const PrivacyPolicy = () => {
   //     error: fetchError,
   //     refetch,
   //   } = useGetSettingsQuery();
-  //   console.log(getSettingsData?.data?.privacyPolicy);
+  //   console.log(getSettingsData?.data?.faq);
 
   //   const [updateSettings, { isLoading: isUpdating }] =
   //     useUpdateSettingsMutation();
 
   //   useEffect(() => {
-  //     if (getSettingsData?.data.privacyPolicy) {
-  //       setContent(getSettingsData.data.privacyPolicy);
+  //     if (getSettingsData?.data.faq) {
+  //       setContent(getSettingsData.data.faq);
   //     }
   //   }, [getSettingsData]);
 
   const handleOnSave = async () => {
     // try {
-    //   await updateSettings({ privacyPolicy: content }).unwrap();
-    //   toast.success("privacyPolicy updated successfully!");
+    //   await updateSettings({ faq: content }).unwrap();
+    //   toast.success("faq updated successfully!");
     //   // if
-    //   // (getSettingsData?.data.privacyPolicy) { }
+    //   // (getSettingsData?.data.faq) { }
     //   //  else {
-    //   //   // Add a new privacyPolicy if not existing
-    //   //   await addSettings({ privacyPolicy: content }).unwrap();
-    //   //   toast.success("privacyPolicy added successfully!");
+    //   //   // Add a new faq if not existing
+    //   //   await addSettings({ faq: content }).unwrap();
+    //   //   toast.success("faq added successfully!");
     //   // }
     //   refetch(); // Refresh the data after save
     // } catch (error) {
-    //   toast.error("Failed to save privacyPolicy. Please try again.");
+    //   toast.error("Failed to save faq. Please try again.");
     //   console.error("Save error:", error);
     // }
   };
@@ -49,7 +49,7 @@ const PrivacyPolicy = () => {
   //   if (isFetching) {
   //     return (
   //       <div className="flex justify-center items-center h-screen">
-  //         <Spin size="large" tip="Loading privacyPolicy..." />
+  //         <Spin size="large" tip="Loading faq..." />
   //       </div>
   //     );
   //   }
@@ -58,7 +58,7 @@ const PrivacyPolicy = () => {
   //   if (fetchError) {
   //     return (
   //       <div className="text-white">
-  //         Error loading privacyPolicy. Please try again later.
+  //         Error loading faq. Please try again later.
   //       </div>
   //     );
   //   }
@@ -67,7 +67,7 @@ const PrivacyPolicy = () => {
     <div className="min-h-[90vh] bg-[#cde5fd] rounded-lg py-1 px-4">
       <div className="p-2 rounded">
         <h1 className="text-4xl font-bold py-4  text-[#222021]">
-          Privacy Policy
+          Frequently Asked Questions
         </h1>
         <div className="">
           <JoditEditor
@@ -88,4 +88,4 @@ const PrivacyPolicy = () => {
     </div>
   );
 };
-export default PrivacyPolicy;
+export default Faq;

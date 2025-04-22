@@ -17,12 +17,14 @@ import AboutUs from "../Dashboard/Settings/AboutUs";
 
 import Notifications from "../Dashboard/Notifications";
 import TermsAndConditions from "../Dashboard/Settings/Terms&Conditions";
-import Announcement from "../Dashboard/Products";
 import ChangePassword from "../Dashboard/Settings/ChangePassword";
 import PrivacyPolicy from "../Dashboard/Settings/PrivacyPolicy";
 import Settings from "../Dashboard/Settings/Settings";
 import Customer from "../Dashboard/Users/Customer";
 import Seller from "../Dashboard/Users/Seller";
+import Earnings from "../Dashboard/Earnings";
+import Faq from "../Dashboard/Settings/Faq";
+import Category from "../Dashboard/Category";
 
 //
 
@@ -67,17 +69,20 @@ const router = createBrowserRouter([
             path: "seller",
             element: <Seller />,
           },
-
           {
-            path: "products",
-            element: <Announcement />,
+            path: "category",
+            element: <Category />,
+          },
+          {
+            path: "earnings",
+            element: <Earnings />,
           },
           {
             path: "settings",
             element: <Settings />,
           },
           {
-            path: "terms-and-condition",
+            path: "terms-and-conditions",
             element: <TermsAndConditions />,
           },
           {
@@ -99,6 +104,10 @@ const router = createBrowserRouter([
           {
             path: "change-password",
             element: <ChangePassword />,
+          },
+          {
+            path: "frequently-asked-questions",
+            element: <Faq />,
           },
           {
             path: "logout",
