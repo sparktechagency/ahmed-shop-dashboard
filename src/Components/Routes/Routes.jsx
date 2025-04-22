@@ -23,6 +23,7 @@ import Settings from "../Dashboard/Settings/Settings";
 import Customer from "../Dashboard/Users/Customer";
 import Seller from "../Dashboard/Users/Seller";
 import Earnings from "../Dashboard/Earnings";
+import Faq from "../Dashboard/Settings/Faq";
 
 //
 
@@ -77,7 +78,7 @@ const router = createBrowserRouter([
             element: <Settings />,
           },
           {
-            path: "terms-and-condition",
+            path: "terms-and-conditions",
             element: <TermsAndConditions />,
           },
           {
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
           {
             path: "change-password",
             element: <ChangePassword />,
+          },
+          {
+            path: "frequently-asked-questions",
+            element: <Faq />,
           },
           {
             path: "logout",

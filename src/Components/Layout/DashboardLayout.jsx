@@ -1,26 +1,12 @@
 import Topbar from "../Shared/Topbar";
 
-// import logo from "/images/logo.png";
-// import dashboardLogo from "../../../public/images/dashboard-logo/dashboard.svg";
-// import user from "../../../public/images/dashboard-logo/user.svg";
-// import business from "../../../public/images/dashboard-logo/business.svg";
-// import service from "../../../public/images/dashboard-logo/beauty.svg";
-// import income from "../../../public/images/dashboard-logo/income.svg";
-// import policyScreen from "../../../public/images/dashboard-logo/policyScreen.svg";
-// import setting from "../../../public/images/dashboard-logo/setting.svg";
-// import profile from "../../../public/images/dashboard-logo/profile.svg";
-// import logout from "../../../public/images/dashboard-logo/logout.svg";
-
 import { MdOutlineDashboard } from "react-icons/md";
-import { VscTerminalUbuntu } from "react-icons/vsc";
-import { SiGnuprivacyguard } from "react-icons/si";
-import { BsInfoCircleFill } from "react-icons/bs";
-import { TbPasswordUser } from "react-icons/tb";
 import { VscSignOut } from "react-icons/vsc";
 import { FaRegUser } from "react-icons/fa";
 import { FaUsersLine } from "react-icons/fa6";
 import { PiUserFill } from "react-icons/pi";
 import { FaHandHoldingDollar } from "react-icons/fa6";
+import { IoSettings } from "react-icons/io5";
 
 import {
   Link,
@@ -106,71 +92,14 @@ const DashboardLayout = () => {
       ),
     },
     {
-      key: "terms-and-condition",
-      icon: <VscTerminalUbuntu size={25} />,
+      key: "settings",
+      icon: <IoSettings size={25} />,
       label: (
-        <NavLink className="font-semibold" to="terms-and-condition">
-          Terms and Condition
+        <NavLink className="font-semibold" to="settings">
+          Settings
         </NavLink>
       ),
     },
-
-    {
-      key: "privacy-policy",
-      icon: <SiGnuprivacyguard size={25} />,
-      label: (
-        <NavLink className="font-semibold" to="privacy-policy">
-          Privacy Policy
-        </NavLink>
-      ),
-    },
-    {
-      key: "about-us",
-      icon: <BsInfoCircleFill size={25} />,
-      label: (
-        <NavLink className="font-semibold" to="about-us">
-          About Us
-        </NavLink>
-      ),
-    },
-    {
-      key: "change-password",
-      icon: <TbPasswordUser size={25} />,
-      label: (
-        <NavLink className="font-semibold" to="change-password">
-          Change Password
-        </NavLink>
-      ),
-    },
-    // {
-    //   key: "settings",
-    //   label: <span className="text-base-color"> Settings</span>,
-    //   icon: <img src={setting} alt="dashboard" width={16} height={16} />,
-    //   children: [
-    //     {
-    //       key: "change-password",
-    //       icon: <span>&#8226;</span>,
-    //       label: (
-    //         <NavLink to="settings/change-password">Change Password</NavLink>
-    //       ),
-    //     },
-    //     {
-    //       key: "about-us",
-    //       icon: <span>&#8226;</span>,
-    //       label: <NavLink to="about-us">About Us</NavLink>,
-    //     },
-    //     {
-    //       key: "terms-of-service",
-    //       icon: <span>&#8226;</span>,
-    //       label: <NavLink to="terms-of-service">Terms & Condition</NavLink>,
-    //     },
-    //     {
-    //       key: "privacy-policy",
-    //       icon: <span>&#8226;</span>,
-    //       label: <NavLink to="privacy-policy">Privacy Policy</NavLink>,
-    //     },
-    //   ],
-    // },
     {
       key: "logout",
       icon: <VscSignOut size={25} />,
