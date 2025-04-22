@@ -3,22 +3,21 @@ import { ConfigProvider, Modal, Table } from "antd";
 import dayjs from "dayjs";
 // import { getImageUrl } from "../../utils/baseUrl";
 
-const ViewUserModal = ({
-  isViewCustomer,
+const ViewSellerModal = ({
+  isViewSeller,
   handleCancel,
   currentRecord,
-  // handleBlock,
 }) => {
   // const imageUrl = getImageUrl();
 
   return (
     <Modal
-      title={
-        <div className="">
-          <h2 className="text-secondary-color text-2xl ">User Details</h2>
-        </div>
-      }
-      open={isViewCustomer}
+      // title={
+      //   <div className="">
+      //     <h2 className="text-secondary-color text-2xl">Seller Details</h2>
+      //   </div>
+      // }
+      open={isViewSeller}
       onCancel={handleCancel}
       footer={null}
       centered
@@ -148,4 +147,4 @@ const ViewUserModal = ({
   );
 };
 
-export default ViewUserModal;
+export default ViewSellerModal;

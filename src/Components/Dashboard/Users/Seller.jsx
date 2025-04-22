@@ -3,25 +3,19 @@ import { useState, useMemo, useEffect } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import DeleteUserModal from "../../UI/DeleteUserModal";
-import ViewUserModal from "../../UI/ViewUserModal";
 import axios from "axios";
 import SellerTable from "../../Tables/SellerTable";
+import ViewSellerModal from "../../UI/ViewSellerModal";
 
 export default function Seller() {
   // eslint-disable-next-line no-unused-vars
   // const { data: allUsers, loadingUser, refetch } = useAllUsersQuery();
   // const userData = allUsers?.data;
   // console.log(userData);
-  //* Store Search Value
+
   const [searchText, setSearchText] = useState("");
-
-  //* It's Use to Show Customer Modal
-  const [isViewCustomer, setIsViewCustomer] = useState(false);
-
-  //* It's Use to Show Delete Modal
+  const [isViewSeller, setIsViewSeller] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
-
-  //* It's Use to Set Seclected User to delete and view
   const [currentRecord, setCurrentRecord] = useState(null);
 
   const [userData, setUserData] = useState([]);
@@ -58,7 +52,7 @@ export default function Seller() {
   const showViewSellerModal = (record) => {
     console.log(record);
     setCurrentRecord(record);
-    setIsViewCustomer(true);
+    setIsViewSeller(true);
   };
 
   const showDeleteModal = (record) => {
@@ -73,7 +67,7 @@ export default function Seller() {
   };
 
   const handleCancel = () => {
-    setIsViewCustomer(false);
+    setIsViewSeller(false);
     setIsDeleteModalVisible(false);
   };
 
@@ -108,14 +102,14 @@ export default function Seller() {
           <SellerTable
             data={filteredData}
             loading={loadingUser}
-            showCustomerViewModal={showViewSellerModal}
+            showViewSellerModal={showViewSellerModal}
             showDeleteModal={showDeleteModal}
             pageSize={8}
           />
         </div>
 
-        <ViewUserModal
-          isViewCustomer={isViewCustomer}
+        <ViewSellerModal
+          isViewSeller={isViewSeller}
           handleCancel={handleCancel}
           currentRecord={currentRecord}
           // handleBlock={handleBlock}

@@ -40,7 +40,7 @@ const SellerTable = ({ data, loading, pageSize = 0 }) => {
       align: "center",
       render: (text, record) => (
         <div>
-          <p>Email: {record.contact.email}</p>
+          <p>{record.contact.email}</p>
         </div>
       ),
     },
@@ -50,7 +50,7 @@ const SellerTable = ({ data, loading, pageSize = 0 }) => {
       align: "center",
       render: (text, record) => (
         <div>
-          <p>Phone: {record.contact.phone}</p>
+          <p>{record.contact.phone}</p>
         </div>
       ),
     },
@@ -60,9 +60,9 @@ const SellerTable = ({ data, loading, pageSize = 0 }) => {
       align: "center",
       render: (text, record) => (
         <div>
-          <p>{record.address.street}</p>
           <p>
-            {record.address.city}, {record.address.state}, {record.address.zip}
+            {record.address.street}, {record.address.city},{" "}
+            {record.address.state}, {record.address.zip}
           </p>
         </div>
       ),
@@ -128,14 +128,20 @@ const SellerTable = ({ data, loading, pageSize = 0 }) => {
 
       {/* Seller Details Modal */}
       <Modal
-        title="Seller Details"
+        title={
+          <div>
+            <h2 className="text-secondary-color text-2xl">Seller Details</h2>
+          </div>
+        }
         visible={selectedSeller !== null}
         onCancel={handleCloseModal}
         footer={null}
-        width={600}
+        style={{ textAlign: "center" }}
+        className="lg:min-w-[800px]"
+        centered
       >
         {selectedSeller && (
-          <div>
+          <div className="p-10">
             <p className="text-xl font-medium">{selectedSeller.name}</p>
             <p>
               <span className="font-semibold">Email:</span>{" "}
@@ -166,7 +172,7 @@ const SellerTable = ({ data, loading, pageSize = 0 }) => {
               dataSource={selectedSeller.products}
               renderItem={(product) => (
                 <List.Item key={product.product_id}>
-                  <Row gutter={16}>
+                  <Row gutter={12}>
                     <Col span={12}>
                       <strong>{product.name}</strong>
                     </Col>

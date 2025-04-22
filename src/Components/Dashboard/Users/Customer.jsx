@@ -2,42 +2,36 @@ import { useState, useMemo, useEffect } from "react";
 
 import { SearchOutlined } from "@ant-design/icons";
 import { Input } from "antd";
-import UsersTable from "../../Tables/SellerTable";
 import DeleteUserModal from "../../UI/DeleteUserModal";
-import ViewUserModal from "../../UI/ViewUserModal";
 import axios from "axios";
+import CustomerTable from "../../Tables/CustomerTable";
+import ViewCustomerModal from "../../UI/ViewCustomerModal";
 
 export default function Customer() {
   // eslint-disable-next-line no-unused-vars
   // const { data: allUsers, loadingUser, refetch } = useAllUsersQuery();
   // const userData = allUsers?.data;
   // console.log(userData);
-  //* Store Search Value
+
   const [searchText, setSearchText] = useState("");
-
-  //* It's Use to Show Customer Modal
   const [isViewCustomer, setIsViewCustomer] = useState(false);
-
-  //* It's Use to Show Delete Modal
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
-
-  //* It's Use to Set Seclected User to delete and view
   const [currentRecord, setCurrentRecord] = useState(null);
 
-  const [userData, setUserData] = useState([]);
-  const [loadingUser, setLoadingUser] = useState(false);
+  const [customerData, setCustomerData] = useState([]);
+  const [loadingCustomer, setLoadingCustomer] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
-      setLoadingUser(true);
+      setLoadingCustomer(true);
       try {
         const response = await axios.get("data/customerData.json");
         console.log(response.data);
-        setUserData(response.data);
+        setCustomerData(response.data);
       } catch (error) {
         console.error("Error fetching landlord data", error);
       } finally {
-        setLoadingUser(false);
+        setLoadingCustomer(false);
       }
     };
 
@@ -45,11 +39,11 @@ export default function Customer() {
   }, []);
 
   const filteredData = useMemo(() => {
-    if (!searchText) return userData;
-    return userData.filter((item) =>
+    if (!searchText) return customerData;
+    return customerData.filter((item) =>
       item.fullName.toLowerCase().includes(searchText.toLowerCase())
     );
-  }, [userData, searchText]);
+  }, [customerData, searchText]);
 
   const onSearch = (value) => {
     setSearchText(value);
@@ -105,16 +99,16 @@ export default function Customer() {
           </div>
         </div>
         <div className="px-2 lg:px-6">
-          <UsersTable
+          <CustomerTable
             data={filteredData}
-            loading={loadingUser}
+            loading={loadingCustomer}
             showCustomerViewModal={showCustomerViewModal}
             showDeleteModal={showDeleteModal}
             pageSize={8}
           />
         </div>
 
-        <ViewUserModal
+        <ViewCustomerModal
           isViewCustomer={isViewCustomer}
           handleCancel={handleCancel}
           currentRecord={currentRecord}

@@ -9,7 +9,7 @@ import { FaLandmark } from "react-icons/fa";
 
 import { useState } from "react";
 
-import ViewUserModal from "../UI/ViewUserModal";
+// import ViewUserModal from "../UI/ViewUserModal";
 import DeleteUserModal from "../UI/DeleteUserModal";
 import IncomeBarChart from "../Chart/IncomeBarChart";
 // import { useAllCustomerQuery } from "../../Redux/api/dashboardApi";
@@ -154,7 +154,7 @@ const Dashboard = () => {
   // console.log(allCustomer?.data);
 
   //* It's Use to Show Modal
-  const [isViewModalVisible, setIsViewModalVisible] = useState(false);
+  // const [isViewModalVisible, setIsViewModalVisible] = useState(false);
 
   //* It's Use to Show Delete Modal
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
@@ -164,7 +164,7 @@ const Dashboard = () => {
 
   const showViewModal = (record) => {
     setCurrentRecord(record);
-    setIsViewModalVisible(true);
+    // setIsViewModalVisible(true);
   };
 
   const showDeleteModal = (record) => {
@@ -179,14 +179,14 @@ const Dashboard = () => {
   };
 
   const handleCancel = () => {
-    setIsViewModalVisible(false);
+    // setIsViewModalVisible(false);
     setIsDeleteModalVisible(false);
   };
 
-  const handleBlock = (data) => {
-    console.log("Blocked User:", { id: data?.id, userName: data?.userName });
-    setIsViewModalVisible(false);
-  };
+  // const handleBlock = (data) => {
+  //   console.log("Blocked User:", { id: data?.id, userName: data?.userName });
+  //   setIsViewModalVisible(false);
+  // };
 
   return (
     <div className="w-full min-h-[90vh] px-1 sm:px-2 lg:px-2">
@@ -390,12 +390,12 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <ViewUserModal
+        {/* <ViewUserModal
           isViewModalVisible={isViewModalVisible}
           handleCancel={handleCancel}
           currentRecord={currentRecord}
           handleBlock={handleBlock}
-        />
+        /> */}
         <DeleteUserModal
           isDeleteModalVisible={isDeleteModalVisible}
           handleDelete={handleDelete}
