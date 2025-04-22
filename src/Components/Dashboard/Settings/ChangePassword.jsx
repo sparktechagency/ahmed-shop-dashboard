@@ -51,7 +51,7 @@ const ChangePassword = () => {
   };
   return (
     <div>
-      <div className=" w-[95%] mx-auto bg-gray-100 min-h-[100vh] p-20 flex justify-center items-center">
+      <div className="mx-auto bg-[#cde5fd] min-h-[90vh] p-20 flex justify-center items-center rounded-lg">
         <div className="w-full lg:w-[70%]">
           <Form
             onFinish={onFinish}
@@ -59,7 +59,7 @@ const ChangePassword = () => {
             className="bg-transparent w-full"
           >
             <Typography.Title level={4} style={{ color: "#222222" }}>
-              Current password
+              Current Password
             </Typography.Title>
             <Form.Item
               rules={[
@@ -77,7 +77,7 @@ const ChangePassword = () => {
               />
             </Form.Item>
             <Typography.Title level={4} style={{ color: "#222222" }}>
-              New password
+              New Password
             </Typography.Title>
             <Form.Item
               rules={[
@@ -92,7 +92,7 @@ const ChangePassword = () => {
               />
             </Form.Item>
             <Typography.Title level={4} style={{ color: "#222222" }}>
-              Re-enter new Password
+              Re-enter New Password
             </Typography.Title>
             <Form.Item
               name="reEnterPassword"
@@ -121,10 +121,10 @@ const ChangePassword = () => {
 
             <Form.Item>
               <Button
-                className="w-full py-6 border !border-[#222021] hover:border-secondary-color text-xl !text-primary-color bg-[#222021] hover:!bg-[#222021] font-semibold rounded-2xl mt-8"
+                className="w-full py-6 border !border-[#0080FF] hover:border-secondary-color text-xl !text-primary-color bg-[#0080FF] hover:!bg-[#0080FF] font-semibold rounded-2xl mt-8"
                 htmlType="submit"
               >
-                Change password
+                Change Password
               </Button>
             </Form.Item>
           </Form>
