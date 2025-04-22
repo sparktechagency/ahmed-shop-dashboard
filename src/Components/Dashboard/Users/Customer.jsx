@@ -41,7 +41,7 @@ export default function Customer() {
   const filteredData = useMemo(() => {
     if (!searchText) return customerData;
     return customerData.filter((item) =>
-      item.fullName.toLowerCase().includes(searchText.toLowerCase())
+      item.name.toLowerCase().includes(searchText.toLowerCase())
     );
   }, [customerData, searchText]);
 

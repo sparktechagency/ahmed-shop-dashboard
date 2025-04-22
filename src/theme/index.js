@@ -62,7 +62,7 @@ export const mainTheme = {
       headerSplitColor: "rgb(255, 2555, 255)",
     },
     Pagination: {
-      itemActiveBg: "#222021",
+      itemActiveBg: "#2774c2",
       colorPrimary: "rgb(255,255,255)",
       colorPrimaryHover: "rgb(255,255,255)",
     },

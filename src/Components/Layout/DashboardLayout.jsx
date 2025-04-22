@@ -12,7 +12,6 @@ import Topbar from "../Shared/Topbar";
 // import logout from "../../../public/images/dashboard-logo/logout.svg";
 
 import { MdOutlineDashboard } from "react-icons/md";
-import { GrAnnounce } from "react-icons/gr";
 import { VscTerminalUbuntu } from "react-icons/vsc";
 import { SiGnuprivacyguard } from "react-icons/si";
 import { BsInfoCircleFill } from "react-icons/bs";
@@ -21,6 +20,7 @@ import { VscSignOut } from "react-icons/vsc";
 import { FaRegUser } from "react-icons/fa";
 import { FaUsersLine } from "react-icons/fa6";
 import { PiUserFill } from "react-icons/pi";
+import { FaHandHoldingDollar } from "react-icons/fa6";
 
 import {
   Link,
@@ -97,11 +97,11 @@ const DashboardLayout = () => {
       ],
     },
     {
-      key: "products",
-      icon: <GrAnnounce size={25} />,
+      key: "earnings",
+      icon: <FaHandHoldingDollar size={25} />,
       label: (
-        <NavLink className="font-semibold" to="products">
-          Products
+        <NavLink className="font-semibold" to="earnings">
+          Earnings
         </NavLink>
       ),
     },

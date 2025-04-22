@@ -17,12 +17,12 @@ import AboutUs from "../Dashboard/Settings/AboutUs";
 
 import Notifications from "../Dashboard/Notifications";
 import TermsAndConditions from "../Dashboard/Settings/Terms&Conditions";
-import Announcement from "../Dashboard/Products";
 import ChangePassword from "../Dashboard/Settings/ChangePassword";
 import PrivacyPolicy from "../Dashboard/Settings/PrivacyPolicy";
 import Settings from "../Dashboard/Settings/Settings";
 import Customer from "../Dashboard/Users/Customer";
 import Seller from "../Dashboard/Users/Seller";
+import Earnings from "../Dashboard/Earnings";
 
 //
 
@@ -69,8 +69,8 @@ const router = createBrowserRouter([
           },
 
           {
-            path: "products",
-            element: <Announcement />,
+            path: "earnings",
+            element: <Earnings />,
           },
           {
             path: "settings",
