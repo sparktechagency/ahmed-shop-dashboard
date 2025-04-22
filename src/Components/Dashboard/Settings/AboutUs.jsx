@@ -68,7 +68,7 @@ const AboutUs = () => {
   // }
 
   return (
-    <div className="min-h-screen bg-gray-100 py-1 px-4">
+    <div className="min-h-[90vh] bg-[#cde5fd] rounded-lg py-1 px-4">
       <div className="p-2 rounded">
         <h1 className="text-4xl font-bold py-4  text-[#222021]">About Us</h1>
 
@@ -83,7 +83,7 @@ const AboutUs = () => {
         <Button
           onClick={handleOnSave}
           // loading={isUpdating}
-          className="w-full py-6 border !border-[#222021] hover:border-[#222021] text-xl !text-primary-color bg-[#222021] hover:!bg-[#222021] font-semibold rounded-2xl mt-8"
+          className="w-full py-6 border !border-[#0080FF] hover:border-[#0080FF] text-xl !text-primary-color bg-[#0080FF] hover:!bg-[#0080FF] font-semibold rounded-2xl mt-8"
         >
           Save
         </Button>
