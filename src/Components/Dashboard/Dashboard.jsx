@@ -144,7 +144,7 @@ const Dashboard = () => {
               //
             >
               <div className="flex justify-between text-base-color mt-4">
-                <p className="text-2xl sm:text-3xl mb-5">Revenue</p>
+                <p className="text-2xl sm:text-3xl mb-5">Earnings</p>
                 <div>
                   <ConfigProvider
                     theme={{
@@ -174,85 +174,10 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-
-          {/* <div className="grid grid-cols-1 items-start lg:grid-cols-2 gap-5 mt-8 w-full">
-            <div
-              className="w-full p-3 bg-[#FFFFFF] rounded-lg border border-input-color"
-              //
-            >
-              <div className="flex justify-between text-base-color mt-4">
-                <p className="text-2xl sm:text-3xl mb-5">Income</p>
-                <div>
-                  <ConfigProvider
-                    theme={{
-                      components: {
-                        Select: {
-                          fontSize: 16,
-                          colorBorder: "#222222",
-                        },
-                      },
-                    }}
-                  >
-                    <Select
-                      onChange={(value) => setSelectedDays(value)}
-                      defaultValue="Last 7 days"
-                      options={[{ value: "7day", label: "Last 7 days" }]}
-                    />
-                  </ConfigProvider>
-                </div>
-              </div>
-              <div>
-                <Area_Chart selectedDays={selectedDays} />
-              </div>
-            </div>
-
-            <div
-              className="w-full p-3 bg-[#FFFFFF] rounded-lg border border-input-color"
-              //
-            >
-              <div className="flex justify-between text-base-color mt-4">
-                <p className="text-2xl sm:text-3xl mb-5">Income</p>
-                <div>
-                  <ConfigProvider
-                    theme={{
-                      components: {
-                        Select: {
-                          fontSize: 16,
-                          colorBorder: "#222222",
-                        },
-                      },
-                    }}
-                  >
-                    <Select
-                      defaultValue="Last 24 Hours"
-                      onChange={(value) => setSelectedHour(value)}
-                      options={[
-                        { value: "24hour", label: "Last 24 Hours" },
-                        // { value: "12hour", label: "Last 12 Hours" },
-                        // { value: "6hour", label: "Last 6 Hours" },
-                      ]}
-                    />
-                  </ConfigProvider>
-                </div>
-              </div>
-              <div>
-                <HourArea_Chart selectedHour={selectedHour} />
-              </div>
-            </div>
-          </div> */}
+          <div>
+            
+          </div>
         </div>
-        {/* <ViewUserModal
-          isViewModalVisible={isViewModalVisible}
-          handleCancel={handleCancel}
-          currentRecord={currentRecord}
-          handleBlock={handleBlock}
-        /> */}
-        {/* <DeleteUserModal
-          isDeleteModalVisible={isDeleteModalVisible}
-          handleDelete={handleDelete}
-          handleCancel={handleCancel}
-          currentRecord={currentRecord}
-        /> */}
       </div>
     </div>
   );
