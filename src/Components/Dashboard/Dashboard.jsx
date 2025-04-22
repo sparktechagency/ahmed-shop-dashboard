@@ -1,8 +1,8 @@
 import { ConfigProvider, Select } from "antd";
 // import Area_Chart from "../Chart/AreaChart";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
-import { AllIcons, PropertyImages } from "../../../public/images/AllImages";
+import { AllIcons } from "../../../public/images/AllImages";
 import { LiaHandHoldingUsdSolid } from "react-icons/lia";
 import { FaHouseChimneyUser } from "react-icons/fa6";
 import { FaLandmark } from "react-icons/fa";
@@ -10,135 +10,9 @@ import { FaLandmark } from "react-icons/fa";
 import { useState } from "react";
 
 // import ViewUserModal from "../UI/ViewUserModal";
-import DeleteUserModal from "../UI/DeleteUserModal";
 import IncomeBarChart from "../Chart/IncomeBarChart";
 // import { useAllCustomerQuery } from "../../Redux/api/dashboardApi";
 // import { useAllUsersQuery } from "../../Redux/api/userApi";
-import PropertyTable from "../Tables/PropertyTable";
-
-const propertyData = [
-  {
-    key: "1",
-    title: "Green Villa",
-    location: "123 Green Street",
-    owner: "John Doe",
-    status: "verify_request",
-    image: [PropertyImages.property01, PropertyImages.property02],
-    description: "A beautiful villa surrounded by lush green gardens.",
-    price: "$1,200,000",
-    size: "3500 sq ft",
-    files: ["PropertyImages.file01", "PropertyImages.file02"],
-  },
-  {
-    key: "2",
-    title: "Sunny Apartment",
-    location: "456 Sunny Lane",
-    owner: "Jane Smith",
-    status: "verified",
-    image: [PropertyImages.property01, PropertyImages.property02],
-    description: "A modern apartment with stunning city views.",
-    price: "$850,000",
-    size: "1500 sq ft",
-    files: ["PropertyImages.file01", "PropertyImages.file02"],
-  },
-  {
-    key: "3",
-    title: "Cozy Cottage",
-    location: "789 Cottage Ave",
-    owner: "Alice Johnson",
-    status: "verify_request",
-    image: [PropertyImages.property01, PropertyImages.property02],
-    description: "A cozy cottage perfect for a quiet weekend getaway.",
-    price: "$450,000",
-    size: "1200 sq ft",
-    files: ["PropertyImages.file01", "PropertyImages.file02"],
-  },
-  {
-    key: "4",
-    title: "Luxury Mansion",
-    location: "101 Luxury Blvd",
-    owner: "Bob Brown",
-    status: "verified",
-    image: [PropertyImages.property01, PropertyImages.property02],
-    description:
-      "A luxury mansion with all modern amenities and expansive space.",
-    price: "$5,000,000",
-    size: "8500 sq ft",
-    files: ["PropertyImages.file01", "PropertyImages.file02"],
-  },
-  {
-    key: "5",
-    title: "Modern Condo",
-    location: "202 Modern St",
-    owner: "Charlie Davis",
-    status: "verify_request",
-    image: [PropertyImages.property01, PropertyImages.property02],
-    description: "A stylish condo located in the heart of the city.",
-    price: "$1,000,000",
-    size: "2000 sq ft",
-    files: ["PropertyImages.file01", "PropertyImages.file02"],
-  },
-  {
-    key: "6",
-    title: "Beach House",
-    location: "303 Beach Road",
-    owner: "David Wilson",
-    status: "verified",
-    image: [PropertyImages.property01, PropertyImages.property02],
-    description: "A beautiful beach house with oceanfront views.",
-    price: "$2,800,000",
-    size: "4000 sq ft",
-    files: ["PropertyImages.file01", "PropertyImages.file02"],
-  },
-  {
-    key: "7",
-    title: "Mountain Retreat",
-    location: "404 Mountain Peak",
-    owner: "Eve Parker",
-    status: "verify_request",
-    image: [PropertyImages.property01, PropertyImages.property02],
-    description: "A serene retreat located at the top of the mountain.",
-    price: "$1,500,000",
-    size: "3000 sq ft",
-    files: ["PropertyImages.file01", "PropertyImages.file02"],
-  },
-  {
-    key: "8",
-    title: "City Loft",
-    location: "505 City Center",
-    owner: "Frank Hall",
-    status: "verified",
-    image: [PropertyImages.property01, PropertyImages.property02],
-    description: "A trendy city loft with open-plan living.",
-    price: "$950,000",
-    size: "1800 sq ft",
-    files: ["PropertyImages.file01", "PropertyImages.file02"],
-  },
-  {
-    key: "9",
-    title: "Suburban Ranch",
-    location: "606 Suburb Lane",
-    owner: "Grace Lee",
-    status: "verify_request",
-    image: [PropertyImages.property01, PropertyImages.property02],
-    description: "A large ranch with plenty of space for outdoor activities.",
-    price: "$3,200,000",
-    size: "6000 sq ft",
-    files: ["PropertyImages.file01", "PropertyImages.file02"],
-  },
-  {
-    key: "10",
-    title: "Downtown Penthouse",
-    location: "707 Downtown Blvd",
-    owner: "Harry King",
-    status: "verified",
-    image: [PropertyImages.property01, PropertyImages.property02],
-    description: "An extravagant penthouse with panoramic city views.",
-    price: "$4,500,000",
-    size: "5000 sq ft",
-    files: ["PropertyImages.file01", "PropertyImages.file02"],
-  },
-];
 
 const Dashboard = () => {
   // const { data: allCustomer } = useAllCustomerQuery();
@@ -157,31 +31,31 @@ const Dashboard = () => {
   // const [isViewModalVisible, setIsViewModalVisible] = useState(false);
 
   //* It's Use to Show Delete Modal
-  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  // const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 
   //* It's Use to Set Seclected User to delete and view
-  const [currentRecord, setCurrentRecord] = useState(null);
+  // const [currentRecord, setCurrentRecord] = useState(null);
 
-  const showViewModal = (record) => {
-    setCurrentRecord(record);
-    // setIsViewModalVisible(true);
-  };
+  // const showViewModal = (record) => {
+  //   setCurrentRecord(record);
+  //   // setIsViewModalVisible(true);
+  // };
 
-  const showDeleteModal = (record) => {
-    setCurrentRecord(record);
-    setIsDeleteModalVisible(true);
-  };
+  // const showDeleteModal = (record) => {
+  //   setCurrentRecord(record);
+  //   setIsDeleteModalVisible(true);
+  // };
 
-  const handleDelete = (data) => {
-    // Handle delete action here
-    console.log({ id: data?.id, userName: data?.userName });
-    setIsDeleteModalVisible(false);
-  };
+  // const handleDelete = (data) => {
+  //   // Handle delete action here
+  //   console.log({ id: data?.id, userName: data?.userName });
+  //   setIsDeleteModalVisible(false);
+  // };
 
-  const handleCancel = () => {
-    // setIsViewModalVisible(false);
-    setIsDeleteModalVisible(false);
-  };
+  // const handleCancel = () => {
+  //   // setIsViewModalVisible(false);
+  //   setIsDeleteModalVisible(false);
+  // };
 
   // const handleBlock = (data) => {
   //   console.log("Blocked User:", { id: data?.id, userName: data?.userName });
@@ -366,29 +240,6 @@ const Dashboard = () => {
               </div>
             </div>
           </div> */}
-
-          <div className="flex flex-col lg:flex-row gap-4 mt-5">
-            <div className="bg-[#FFFFFF] rounded flex-1 p-3">
-              <div className="flex justify-between items-center mx-3 py-2">
-                <p className="text-2xl font-semibold text-base-color">
-                  Property List
-                </p>
-                <div>
-                  <Link to="/properties">
-                    <p className="bg-[#2e2e2e] border border-secondary-color font-semibold text-white px-3 py-1 rounded-lg">
-                      See All
-                    </p>
-                  </Link>
-                </div>
-              </div>
-              <PropertyTable
-                data={propertyData}
-                showViewModal={showViewModal}
-                showDeleteModal={showDeleteModal}
-                pageSize={5}
-              />
-            </div>
-          </div>
         </div>
         {/* <ViewUserModal
           isViewModalVisible={isViewModalVisible}
@@ -396,12 +247,12 @@ const Dashboard = () => {
           currentRecord={currentRecord}
           handleBlock={handleBlock}
         /> */}
-        <DeleteUserModal
+        {/* <DeleteUserModal
           isDeleteModalVisible={isDeleteModalVisible}
           handleDelete={handleDelete}
           handleCancel={handleCancel}
           currentRecord={currentRecord}
-        />
+        /> */}
       </div>
     </div>
   );

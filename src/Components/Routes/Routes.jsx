@@ -24,6 +24,7 @@ import Customer from "../Dashboard/Users/Customer";
 import Seller from "../Dashboard/Users/Seller";
 import Earnings from "../Dashboard/Earnings";
 import Faq from "../Dashboard/Settings/Faq";
+import Category from "../Dashboard/Category";
 
 //
 
@@ -68,7 +69,10 @@ const router = createBrowserRouter([
             path: "seller",
             element: <Seller />,
           },
-
+          {
+            path: "category",
+            element: <Category />,
+          },
           {
             path: "earnings",
             element: <Earnings />,

@@ -7,6 +7,7 @@ import { FaUsersLine } from "react-icons/fa6";
 import { PiUserFill } from "react-icons/pi";
 import { FaHandHoldingDollar } from "react-icons/fa6";
 import { IoSettings } from "react-icons/io5";
+import { MdCategory } from "react-icons/md";
 
 import {
   Link,
@@ -81,6 +82,15 @@ const DashboardLayout = () => {
           label: <NavLink to="customers">Customer</NavLink>,
         },
       ],
+    },
+    {
+      key: "category",
+      icon: <MdCategory size={25} />,
+      label: (
+        <NavLink className="font-semibold" to="category">
+          Category
+        </NavLink>
+      ),
     },
     {
       key: "earnings",
