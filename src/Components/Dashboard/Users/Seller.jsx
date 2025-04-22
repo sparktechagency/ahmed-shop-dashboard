@@ -18,20 +18,20 @@ export default function Seller() {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
 
-  const [userData, setUserData] = useState([]);
-  const [loadingUser, setLoadingUser] = useState(false);
+  const [sellerData, setSellerData] = useState([]);
+  const [loadingSeller, setLoadingSeller] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
-      setLoadingUser(true);
+      setLoadingSeller(true);
       try {
         const response = await axios.get("data/sellerData.json");
         console.log(response.data);
-        setUserData(response.data);
+        setSellerData(response.data);
       } catch (error) {
         console.error("Error fetching landlord data", error);
       } finally {
-        setLoadingUser(false);
+        setLoadingSeller(false);
       }
     };
 
@@ -39,11 +39,11 @@ export default function Seller() {
   }, []);
 
   const filteredData = useMemo(() => {
-    if (!searchText) return userData;
-    return userData.filter((item) =>
+    if (!searchText) return sellerData;
+    return sellerData.filter((item) =>
       item.fullName.toLowerCase().includes(searchText.toLowerCase())
     );
-  }, [userData, searchText]);
+  }, [sellerData, searchText]);
 
   const onSearch = (value) => {
     setSearchText(value);
@@ -101,7 +101,7 @@ export default function Seller() {
         <div className="px-2 lg:px-6">
           <SellerTable
             data={filteredData}
-            loading={loadingUser}
+            loading={loadingSeller}
             showViewSellerModal={showViewSellerModal}
             showDeleteModal={showDeleteModal}
             pageSize={8}

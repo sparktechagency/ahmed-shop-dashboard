@@ -1,22 +1,17 @@
 /* eslint-disable react/prop-types */
 import { ConfigProvider, Modal, Table } from "antd";
-import dayjs from "dayjs";
 // import { getImageUrl } from "../../utils/baseUrl";
 
-const ViewSellerModal = ({
-  isViewSeller,
-  handleCancel,
-  currentRecord,
-}) => {
+const ViewSellerModal = ({ isViewSeller, handleCancel, currentRecord }) => {
   // const imageUrl = getImageUrl();
 
   return (
     <Modal
-      // title={
-      //   <div className="">
-      //     <h2 className="text-secondary-color text-2xl">Seller Details</h2>
-      //   </div>
-      // }
+      title={
+        <div className="">
+          <h2 className="text-secondary-color text-2xl">Seller Details</h2>
+        </div>
+      }
       open={isViewSeller}
       onCancel={handleCancel}
       footer={null}
@@ -32,109 +27,98 @@ const ViewSellerModal = ({
               <img
                 // src={`${imageUrl}/${currentRecord.image}`}
                 src={currentRecord?.image}
-                alt={currentRecord?.fullName}
+                alt={currentRecord?.name}
                 className="w-14 h-14 sm:w-20  sm:h-20 rounded-lg mr-4"
               />
             )}
             <div className="text-xl sm:text-2xl font-bold">
-              {currentRecord?.fullName}
+              {currentRecord?.name}
             </div>
           </div>
 
           <div className="mt-5">
-            <div className="grid lg:grid-cols-2 text-start gap-4 text-lg">
-              {currentRecord?.serviceName && (
-                <div className="sm:flex gap-1">
-                  <div className="font-bold">Service name:</div>
-                  <div>{currentRecord?.serviceName}</div>
-                </div>
-              )}
+            <div className="flex flex-col text-start gap-1 text-lg">
               {currentRecord?.email && (
                 <div className="sm:flex gap-1">
                   <div className="font-bold">Email:</div>
                   <div>{currentRecord?.email}</div>
                 </div>
               )}
-              {currentRecord?.joiningDate && (
-                <div className="sm:flex gap-1">
-                  <div className="font-bold">Joining Date:</div>
-                  <div>{currentRecord?.joiningDate}</div>
-                </div>
-              )}
-
-              {currentRecord?.dateOfBirth && (
-                <div className="sm:flex gap-1">
-                  <div className="font-bold">Date of Birth:</div>
-                  <div>
-                    {currentRecord?.dateOfBirth
-                      ? dayjs(currentRecord?.dateOfBirth).format("DD-MM-YYYY")
-                      : "-"}
-                  </div>
-                </div>
-              )}
-              {currentRecord?.contactNumber && (
+              {currentRecord?.contact && (
                 <div className="sm:flex gap-1">
                   <div className="font-bold">Contact number:</div>
-                  <div>{currentRecord?.contactNumber}</div>
+                  <div>{currentRecord?.contact?.phone}</div>
                 </div>
               )}
               {currentRecord?.address && (
                 <div className="sm:flex gap-1">
-                  <div className="font-bold">Contact number:</div>
-                  <div>{currentRecord?.address}</div>
+                  <div className="font-bold">Address:</div>
+                  <div>
+                    {currentRecord?.address?.street},{" "}
+                    {currentRecord?.address?.city},{" "}
+                    {currentRecord?.address?.state},{" "}
+                    {currentRecord?.address?.zip}
+                  </div>
                 </div>
               )}
             </div>
           </div>
           {/* Display Owned Properties */}
-          {currentRecord?.ownedProperties &&
-            currentRecord?.ownedProperties.length > 0 && (
-              <div className="mt-5">
-                <h3 className="text-lg font-bold mb-2">Owned Properties:</h3>
-                <ConfigProvider
-                  theme={{
-                    components: {
-                      Table: {
-                        padding: 5,
-                        fontSize: 14,
-                      },
+          {currentRecord?.products && currentRecord?.products.length > 0 && (
+            <div className="mt-5">
+              <h3 className="text-lg font-bold mb-2">Products:</h3>
+              <ConfigProvider
+                theme={{
+                  components: {
+                    Table: {
+                      padding: 5,
+                      fontSize: 14,
+                      headerBg: "#2774c2",
+                      headerColor: "rgba(255,255,255,0.88)",
                     },
-                  }}
-                >
-                  <Table
-                    bordered
-                    dataSource={currentRecord.ownedProperties}
-                    columns={[
-                      {
-                        title: "Property Name",
-                        dataIndex: "name",
-                        key: "name",
-                        align: "center",
-                      },
-                      {
-                        title: "Property Type",
-                        dataIndex: "type",
-                        key: "type",
-                        align: "center",
-                      },
-                      {
-                        title: "Location",
-                        dataIndex: "location",
-                        key: "location",
-                        align: "center",
-                      },
-                      {
-                        title: "Value",
-                        dataIndex: "value",
-                        key: "value",
-                        align: "center",
-                      },
-                    ]}
-                    rowKey="name" // Assuming 'name' is unique for each property
-                  />
-                </ConfigProvider>
-              </div>
-            )}
+                  },
+                }}
+              >
+                <Table
+                  bordered
+                  dataSource={currentRecord.products}
+                  columns={[
+                    {
+                      title: "Product Name",
+                      dataIndex: "name",
+                      key: "name",
+                      align: "center",
+                    },
+                    {
+                      title: "Product Type",
+                      dataIndex: "category",
+                      key: "category",
+                      align: "center",
+                    },
+                    {
+                      title: "Price",
+                      dataIndex: "price",
+                      key: "price",
+                      align: "center",
+                    },
+                    {
+                      title: "Unit",
+                      dataIndex: "unit",
+                      key: "unit",
+                      align: "center",
+                    },
+                    {
+                      title: "Stock",
+                      dataIndex: "stock",
+                      key: "stock",
+                      align: "center",
+                    },
+                  ]}
+                  rowKey="name"
+                />
+              </ConfigProvider>
+            </div>
+          )}
         </div>
         {/* <button
           onClick={() => handleBlock(currentRecord)}
