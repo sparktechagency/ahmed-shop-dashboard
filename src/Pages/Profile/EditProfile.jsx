@@ -54,7 +54,7 @@ const EditProfile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center">
+    <div className="bg-[#cde5fd] min-h-[90vh] flex justify-center">
       <Form
         onFinish={onFinish}
         layout="vertical"
@@ -112,7 +112,7 @@ const EditProfile = () => {
                           fontSize: "18px",
                         }}
                       >
-                        <EditOutlined style={{ color: "#f5382c" }} />
+                        <EditOutlined style={{ color: "#2774C2" }} />
                       </Button>
                     </Upload>
                   </Form.Item>
@@ -192,7 +192,7 @@ const EditProfile = () => {
               )}
               <Form.Item>
                 <Button
-                  className="w-full py-6 border !border-[#222021] hover:border-[#222021] text-xl !text-primary-color bg-[#222021] hover:!bg-[#222021] font-semibold rounded-2xl mt-8"
+                  className="w-full py-6 border !border-[#2774C2] hover:border-[#0080FF] text-xl !text-primary-color bg-[#0080FF] hover:!bg-[#2774C2] font-semibold rounded-2xl mt-8"
                   htmlType="submit"
                 >
                   Save & Change
