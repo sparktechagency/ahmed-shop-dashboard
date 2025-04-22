@@ -37,12 +37,12 @@ const SignIn = () => {
     // }
   };
   return (
-    <div className="text-base-color bg-gray-500">
+    <div className="text-base-color bg-[#4f8dca]">
       <div className="max-w-[1350px] w-[90%] mx-auto grid grid-cols-1 lg:grid-cols-2 items-center justify-items-center gap-10 min-h-screen py-10">
         <div className="">
           <img src={AllImages.logo} alt="logo" className="mx-auto" />
         </div>
-        <div className="w-full flex flex-col justify-center items-center min-h-[80vh] p-5 md:p-8 lg:p-10 xl:p-16 bg-[#eeeeee] lg:w-full mx-auto rounded-lg border border-[#707070]">
+        <div className="w-full flex flex-col justify-center items-center min-h-[80vh] p-5 md:p-8 lg:p-10 xl:p-16 bg-[#a1d9ff] lg:w-full mx-auto rounded-lg border border-[#707070]">
           <div className="w-full">
             <div className="">
               <div className=" mt-5 mb-8">
@@ -100,7 +100,7 @@ const SignIn = () => {
                 <Checkbox className="">Remember me</Checkbox>
                 <Link
                   to="/forgot-password"
-                  className="font-semibold !text-[#4e67ac] !underline"
+                  className="font-semibold !text-[#2774C2] !underline"
                 >
                   Forgot Password?
                 </Link>
@@ -109,7 +109,7 @@ const SignIn = () => {
               <Form.Item>
                 <Button
                   type="primary"
-                  className="w-full py-6 border border-[#222021] hover:border-[#222021] text-xl text-primary-color bg-[#222021] hover:!bg-[#222021] font-semibold rounded-2xl mt-8"
+                  className="w-full py-6 border border-[#0080FF] hover:border-[#2774C2] text-xl text-primary-color bg-[#0080FF] hover:!bg-[#2774C2] font-semibold rounded-2xl mt-8"
                   htmlType="submit"
                 >
                   Sign In
