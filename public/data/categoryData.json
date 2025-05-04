@@ -1,7 +1,7 @@
 [
   {
     "category_id": "1",
-    "category_name": "Fruits & Vegetables",
+    "categoryName": "Fruits & Vegetables",
     "description": "Fresh fruits and vegetables for a healthy diet.",
     "image": "/images/categoryImage/fruits&vegs.png",
     "products": [
@@ -48,7 +48,7 @@
   },
   {
     "category_id": "2",
-    "category_name": "Dairy & Eggs",
+    "categoryName": "Dairy & Eggs",
     "description": "Milk, cheese, eggs, and other dairy products.",
     "image": "/public/images/categoryImage/dairy.jpg",
     "products": [
@@ -95,7 +95,7 @@
   },
   {
     "category_id": "3",
-    "category_name": "Beverages",
+    "categoryName": "Beverages",
     "description": "Refreshing drinks like soda, juice, and bottled water.",
     "image": "/public/images/categoryImage/Beverage.png",
     "products": [
@@ -142,7 +142,7 @@
   },
   {
     "category_id": "4",
-    "category_name": "Snacks & Sweets",
+    "categoryName": "Snacks & Sweets",
     "description": "Chocolates, chips, and other tasty treats.",
     "image": "/public/images/categoryImage/snacks.jpg",
     "products": [
@@ -189,7 +189,7 @@
   },
   {
     "category_id": "5",
-    "category_name": "Frozen Foods",
+    "categoryName": "Frozen Foods",
     "description": "Frozen meals, vegetables, and desserts.",
     "image": "/public/images/categoryImage/frozenFood.png",
     "products": [

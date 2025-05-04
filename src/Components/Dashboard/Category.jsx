@@ -10,8 +10,13 @@ import {
   message,
   Form,
   Upload,
+  Switch,
 } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
+import {
+  CheckOutlined,
+  CloseOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import axios from "axios";
 import { GoEye } from "react-icons/go";
 import { RiEdit2Fill } from "react-icons/ri";
@@ -24,8 +29,8 @@ const Category = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [newCategory, setNewCategory] = useState({
-    category_name: "",
-    description: "",
+    categoryName: "",
+    // description: "",
     image: "",
     products: [],
   });
@@ -50,7 +55,7 @@ const Category = () => {
 
   // Filter categories based on search text
   const filteredCategoryData = categoryData.filter((category) =>
-    category.category_name.toLowerCase().includes(searchText.toLowerCase())
+    category.categoryName.toLowerCase().includes(searchText.toLowerCase())
   );
 
   const handleSearch = (e) => {
@@ -74,8 +79,8 @@ const Category = () => {
   const handleAddCategoryCancel = () => {
     setIsAddModalVisible(false);
     setNewCategory({
-      category_name: "",
-      description: "",
+      categoryName: "",
+      // description: "",
       image: "",
       products: [],
     });
@@ -88,8 +93,8 @@ const Category = () => {
     ]);
     setIsAddModalVisible(false);
     setNewCategory({
-      category_name: "",
-      description: "",
+      categoryName: "",
+      // description: "",
       image: "",
       products: [],
     });
@@ -109,6 +114,10 @@ const Category = () => {
     });
 
     return false;
+  };
+
+  const changeStatus = (checked) => {
+    console.log(`switch to ${checked}`);
   };
 
   const columns = [
@@ -134,18 +143,18 @@ const Category = () => {
     },
     {
       title: "Category Name",
-      dataIndex: "category_name",
-      key: "category_name",
+      dataIndex: "categoryName",
+      key: "categoryName",
       render: (text) => <span>{text}</span>,
       align: "center",
     },
-    {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
-      render: (text) => <span>{text}</span>,
-      align: "center",
-    },
+    // {
+    //   title: "Description",
+    //   dataIndex: "description",
+    //   key: "description",
+    //   render: (text) => <span>{text}</span>,
+    //   align: "center",
+    // },
     {
       title: "Total Products",
       dataIndex: "products",
@@ -156,12 +165,12 @@ const Category = () => {
       align: "center",
     },
     {
-      title: "Details",
+      title: "Action",
       key: "action",
       align: "center",
       render: (_, record) => (
-        <Space size="middle">
-          <Tooltip placement="right" title="View Details">
+        <div className="flex items-center justify-center gap-5">
+          <Tooltip placement="left" title="View Details">
             <Button
               className="!p-0"
               style={{
@@ -174,7 +183,23 @@ const Category = () => {
               <GoEye style={{ fontSize: "24px" }} />
             </Button>
           </Tooltip>
-        </Space>
+          <Tooltip placement="right" title="Change Status">
+            <Switch
+              size="medium"
+              checkedChildren={<CheckOutlined />}
+              unCheckedChildren={<CloseOutlined />}
+              defaultChecked
+              className="!p-0"
+              onChange={changeStatus}
+              // style={{
+              //   background: "#FFFFFF",
+              //   border: "none",
+              //   color: "#222222",
+              // }}
+              // onClick={() => showCategoryDetailsModal(record)}
+            ></Switch>
+          </Tooltip>
+        </div>
       ),
     },
   ];
@@ -235,7 +260,7 @@ const Category = () => {
           <h1 className="text-3xl font-bold text-[#333]">Product Categories</h1>
           <div className="flex items-center gap-2">
             <Input
-              placeholder="Search Category Name"
+              placeholder="Search Category..."
               value={searchText}
               onChange={handleSearch}
               style={{ width: "100%", height: 40 }}
@@ -265,7 +290,7 @@ const Category = () => {
               <h2 className="text-secondary-color text-center text-xl underline">
                 Category Type -{" "}
                 <span className="font-semibold text-2xl">
-                  {selectedCategory?.category_name}
+                  {selectedCategory?.categoryName}
                 </span>
               </h2>
             </div>
@@ -281,12 +306,12 @@ const Category = () => {
             <div className="flex flex-col gap-2">
               <div className="flex items-center ">
                 <div>
-                  <p>
+                  {/* <p>
                     Description:{" "}
                     <span className="text-lg font-semibold">
                       {selectedCategory.description}
                     </span>
-                  </p>
+                  </p> */}
                   <p>
                     Total Products :{" "}
                     <span className="text-lg font-semibold">
@@ -346,31 +371,31 @@ const Category = () => {
             visible={isAddModalVisible}
             onCancel={handleAddCategoryCancel}
             onOk={handleAddCategoryOk}
-            width={600}
+            width={500}
           >
             <Form layout="vertical">
               <Form.Item
                 label="Category Name"
-                value={newCategory.category_name}
+                value={newCategory.categoryName}
                 onChange={(e) =>
                   setNewCategory({
                     ...newCategory,
-                    category_name: e.target.value,
+                    categoryName: e.target.value,
                   })
                 }
               >
                 <Input
-                  value={newCategory.category_name}
-                  className="h-10"
+                  value={newCategory.categoryName}
+                  className="h-10 w-2/3"
                   onChange={(e) =>
                     setNewCategory({
                       ...newCategory,
-                      category_name: e.target.value,
+                      categoryName: e.target.value,
                     })
                   }
                 />
               </Form.Item>
-              <Form.Item
+              {/* <Form.Item
                 label="Description"
                 value={newCategory.description}
                 onChange={(e) =>
@@ -390,7 +415,7 @@ const Category = () => {
                     })
                   }
                 />
-              </Form.Item>{" "}
+              </Form.Item> */}
               <Form.Item label="Category Image">
                 <Upload
                   showUploadList={false}
