@@ -8,6 +8,11 @@ import { PiUserFill } from "react-icons/pi";
 import { FaHandHoldingDollar } from "react-icons/fa6";
 import { IoSettings } from "react-icons/io5";
 import { MdCategory } from "react-icons/md";
+import { CgPassword } from "react-icons/cg";
+import { BsInfoSquareFill } from "react-icons/bs";
+import { MdEditNote } from "react-icons/md";
+import { MdPrivacyTip } from "react-icons/md";
+import { FaQuestionCircle } from "react-icons/fa";
 
 import {
   Link,
@@ -72,13 +77,11 @@ const DashboardLayout = () => {
         {
           key: "seller",
           icon: <FaRegUser size={20} />,
-          // icon: <span>&#8226;</span>,
           label: <NavLink to="seller">Seller</NavLink>,
         },
         {
           key: "customers",
           icon: <PiUserFill size={20} />,
-          // icon: <span>&#8226;</span>,
           label: <NavLink to="customers">Customer</NavLink>,
         },
       ],
@@ -103,12 +106,40 @@ const DashboardLayout = () => {
     },
     {
       key: "settings",
-      icon: <IoSettings size={25} />,
-      label: (
-        <NavLink className="font-semibold" to="settings">
-          Settings
-        </NavLink>
-      ),
+      icon: <IoSettings size={25} backgroundColor="white" color="white" />,
+      label: <p className="text-white font-semibold">Settings</p>,
+
+      children: [
+        {
+          key: "change-password",
+          icon: <CgPassword size={20} />,
+          label: <NavLink to="change-password">Change Password</NavLink>,
+        },
+        {
+          key: "about-us",
+          icon: <BsInfoSquareFill size={20} />,
+          label: <NavLink to="about-us">About Us</NavLink>,
+        },
+        {
+          key: "terms-and-conditions",
+          icon: <MdEditNote size={20} />,
+          label: (
+            <NavLink to="terms-and-conditions">Terms & Conditions</NavLink>
+          ),
+        },
+        {
+          key: "privacy-policy",
+          icon: <MdPrivacyTip size={20} />,
+          // icon: <span>&#8226;</span>,
+          label: <NavLink to="privacy-policy">Privacy Policy</NavLink>,
+        },
+        {
+          key: "frequently-asked-questions",
+          icon: <FaQuestionCircle size={20} />,
+          // icon: <span>&#8226;</span>,
+          label: <NavLink to="frequently-asked-questions">FAQ</NavLink>,
+        },
+      ],
     },
     {
       key: "logout",

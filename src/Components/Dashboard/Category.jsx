@@ -353,9 +353,11 @@ const Category = () => {
           theme={{
             components: {
               Button: {
-                colorPrimary: "#0080FF",
-                colorPrimaryHover: "#2774C2",
-                colorPrimaryActive: "rgb(62,62,62)",
+                defaultBg: "rgb(16,111,245)",
+                defaultColor: "rgba(255,255,255,0.88)",
+                defaultHoverBg: "rgb(43,67,164)",
+                defaultHoverColor: "rgb(224,236,252)",
+                defaultHoverBorderColor: "rgb(195,222,255)",
               },
             },
           }}
