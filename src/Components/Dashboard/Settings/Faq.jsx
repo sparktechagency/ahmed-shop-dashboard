@@ -6,45 +6,20 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { MdOutlineDelete } from "react-icons/md";
 import { FaQuestionCircle } from "react-icons/fa";
 import TextArea from "antd/es/input/TextArea";
-
-const allFaqData = [
-  {
-    question: "What is your return policy?",
-    answer:
-      "We offer a 30-day return policy. You can return most new, unopened items within 30 days of delivery for a full refund.",
-  },
-  {
-    question: "How do I track my order?",
-    answer:
-      "Once your order has shipped, you will receive an email with a tracking number and link to track the package.",
-  },
-  {
-    question: "Can I change or cancel my order?",
-    answer:
-      "If your order has not yet shipped, we may be able to cancel or modify it. Please contact our customer service team as soon as possible.",
-  },
-  {
-    question: "Do you ship internationally?",
-    answer:
-      "Yes, we ship to most countries worldwide. Shipping costs and delivery times vary depending on the destination.",
-  },
-  {
-    question: "How can I contact customer service?",
-    answer:
-      "You can contact our customer service team via email at support@example.com or by calling 1-800-123-4567.",
-  },
-  {
-    question: "What payment methods do you accept?",
-    answer: "We accept all major credit cards, PayPal, and Apple Pay.",
-  },
-  {
-    question: "Do you offer gift cards?",
-    answer:
-      "Yes, we offer digital gift cards in various denominations. You can purchase them on our website.",
-  },
-];
+import { toast } from "sonner";
+import {
+  useAddFaqMutation,
+  useDeleteFaqMutation,
+  useGetFaqQuery,
+  useUpdateFaqMutation,
+} from "../../../Redux/api/settingsApi";
 
 export default function FAQ() {
+  const { data: faq, refetch, isLoading: loadingFaq } = useGetFaqQuery();
+  const [addFaq] = useAddFaqMutation();
+  const [editFaq] = useUpdateFaqMutation();
+  const [deleteFaq] = useDeleteFaqMutation();
+
   const [faqData, setFaqData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -56,10 +31,16 @@ export default function FAQ() {
   const [itemsPerPage] = useState(5);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editingFaq, setEditingFaq] = useState(null);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [faqToDelete, setFaqToDelete] = useState(null);
 
   useEffect(() => {
-    setFaqData(allFaqData);
-  }, []);
+    if (faq?.data) {
+      setFaqData(faq.data);
+    }
+  }, [faq]);
+
+  console.log("faqData", faqData);
 
   const handlePaginationChange = (page) => {
     setCurrentPage(page);
@@ -94,18 +75,54 @@ export default function FAQ() {
     setIsModalVisible(true);
   };
 
-  const handleSaveFaq = () => {
+  const handleSaveFaq = async () => {
     if (isEditMode) {
-      const updatedFaqData = faqData.map((faq) =>
-        faq === editingFaq ? { ...faq, ...newFaq } : faq
-      );
-      setFaqData(updatedFaqData);
-      message.success("FAQ updated successfully!");
+      try {
+        console.log("Updating FAQ with ID:", editingFaq._id);
+        console.log("Updated data:", newFaq);
+        const updatedData = await editFaq({
+          id: editingFaq._id,
+          data: newFaq,
+        }).unwrap();
+        console.log("updatedData", updatedData);
+        toast.success("FAQ updated successfully!");
+        refetch();
+      } catch (error) {
+        toast.error("Error updating FAQ!");
+        console.log("error editing", error);
+      }
     } else {
-      setFaqData([...faqData, { ...newFaq, category_id: Date.now() }]);
-      message.success("New FAQ added successfully!");
+      try {
+        await addFaq(newFaq).unwrap();
+        toast.success("New FAQ added successfully!");
+      } catch (error) {
+        toast.error("Error adding FAQ!");
+      }
     }
     handleModalClose();
+    refetch();
+  };
+
+  const showDeleteConfirmationModal = (faq) => {
+    setFaqToDelete(faq);
+    setIsDeleteModalVisible(true);
+  };
+
+  const handleDeleteFaq = async () => {
+    try {
+      await deleteFaq(faqToDelete._id).unwrap();
+      setIsDeleteModalVisible(false);
+      toast.success("FAQ deleted successfully!");
+    } catch (error) {
+      setIsDeleteModalVisible(false);
+      toast.error("Error deleting FAQ!");
+    }
+    refetch();
+  };
+
+  const handleDeleteCancel = () => {
+    setIsDeleteModalVisible(false);
+    setFaqToDelete(null);
   };
 
   return (
@@ -161,7 +178,7 @@ export default function FAQ() {
                 <Button onClick={() => showEditFaqModal(faq)}>
                   <AiOutlineEdit fontSize={20} />
                 </Button>
-                <Button>
+                <Button onClick={() => showDeleteConfirmationModal(faq)}>
                   <MdOutlineDelete fontSize={20} />
                 </Button>
               </div>
@@ -242,6 +259,26 @@ export default function FAQ() {
               />
             </Form.Item>
           </Form>
+        </Modal>
+
+        {/* Delete Confirmation Modal */}
+        <Modal
+          title={
+            <h2 className="text-secondary-color text-center text-xl underline">
+              Delete FAQ?
+            </h2>
+          }
+          visible={isDeleteModalVisible}
+          onCancel={handleDeleteCancel}
+          onOk={handleDeleteFaq}
+          okText="Delete"
+          cancelText="Cancel"
+          style={{ textAlign: "center" }}
+          centered
+        >
+          <p className="text-lg text-gray-600">
+            Are you sure you want to delete this FAQ?
+          </p>
         </Modal>
       </div>
     </ConfigProvider>
