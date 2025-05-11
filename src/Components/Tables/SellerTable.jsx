@@ -1,13 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Button, ConfigProvider, Space, Table, Tooltip } from "antd";
 import { GoEye } from "react-icons/go";
-// import { useState } from "react";
-// import { getImageUrl } from "../../utils/baseUrl";
 
 const SellerTable = ({ data, loading, showViewSellerModal, pageSize = 0 }) => {
-  // const imageUrl = getImageUrl();
-  // const [selectedSeller, setSelectedSeller] = useState(null);
-
   const columns = [
     {
       title: "#SI",
@@ -18,50 +13,27 @@ const SellerTable = ({ data, loading, showViewSellerModal, pageSize = 0 }) => {
     },
     {
       title: "Seller Name",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "fullName",
+      key: "fullName",
       align: "center",
     },
     {
       title: "Email",
-      dataIndex: "contact",
+      dataIndex: "email",
       key: "email",
       align: "center",
-      render: (contact) => (
-        <div className="flex items-center justify-center">
-          <span>{contact?.email}</span>
-        </div>
-      ),
     },
     {
       title: "Phone",
-      key: "contact",
-      dataIndex: "contact",
+      key: "phone",
+      dataIndex: "phone",
       align: "center",
-      render: (contact) => (
-        <div className="flex items-center justify-center">
-          <span>{contact?.phone}</span>
-        </div>
-      ),
     },
     {
       title: "Address",
       key: "address",
+      dataIndex: "address",
       align: "center",
-      render: (text, record) => (
-        <div>
-          <p>
-            {record.address.street}, {record.address.city},{" "}
-            {record.address.state}, {record.address.zip}
-          </p>
-        </div>
-      ),
-    },
-    {
-      title: "Products Offered",
-      key: "products",
-      align: "center",
-      render: (text, record) => record.products.length, // Display number of products sold by seller
     },
     {
       title: "Details",
@@ -87,12 +59,6 @@ const SellerTable = ({ data, loading, showViewSellerModal, pageSize = 0 }) => {
     },
   ];
 
-  // const handleCloseModal = () => setSelectedSeller(null);
-
-  // const showCustomerViewModal = (record) => {
-  //   setSelectedSeller(record);
-  // };
-
   return (
     <div>
       <ConfigProvider
@@ -108,81 +74,13 @@ const SellerTable = ({ data, loading, showViewSellerModal, pageSize = 0 }) => {
       >
         <Table
           columns={columns}
-          dataSource={data} // Display seller data passed to the component
+          dataSource={data}
           loading={loading}
           pagination={pageSize > 0 ? { pageSize } : false}
-          rowKey="seller_id" // Unique identifier for each row
-          scroll={{ x: true }} // Allows horizontal scrolling
+          rowKey="seller_id"
+          scroll={{ x: true }}
         />
       </ConfigProvider>
-
-      {/* Seller Details Modal */}
-      {/* <Modal
-        title={
-          <div>
-            <h2 className="text-secondary-color text-2xl">Seller Details</h2>
-          </div>
-        }
-        visible={selectedSeller !== null}
-        onCancel={handleCloseModal}
-        footer={null}
-        style={{ textAlign: "center" }}
-        className="lg:min-w-[800px]"
-        centered
-      >
-        {selectedSeller && (
-          <div className="p-10">
-            <p className="text-xl font-medium">{selectedSeller.name}</p>
-            <p>
-              <span className="font-semibold">Email:</span>{" "}
-              {selectedSeller.contact.email}
-            </p>
-            <p>
-              <span className="font-semibold">Phone:</span>{" "}
-              {selectedSeller.contact.phone}
-            </p>
-            <div className="flex gap-1 items-center">
-              <p className="font-semibold">Address:</p>
-              <div className="flex gap-1 items-center">
-                <p>{selectedSeller.address.street}</p>
-                <p>
-                  {selectedSeller.address.city}, {selectedSeller.address.state},{" "}
-                  {selectedSeller.address.zip}
-                </p>
-              </div>
-            </div>
-
-            <Divider />
-
-            <h4 className="text-center text-lg font-semibold">
-              Products Offered
-            </h4>
-            <List
-              dataSource={selectedSeller.products}
-              renderItem={(product) => (
-                <List.Item key={product.product_id}>
-                  <Row gutter={12}>
-                    <Col span={12}>
-                      <strong>{product.name}</strong>
-                    </Col>
-                    <Col span={12} style={{ textAlign: "right" }}>
-                      <Tag color="green">
-                        ${product.price} / {product.unit}
-                      </Tag>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col span={24}>
-                      <p>Category: {product.category}</p>
-                      <p>Stock: {product.stock}</p>
-                    </Col>
-                  </Row>
-                </List.Item>
-              )}
-            />
-          </div>
-        )}
-      </Modal> */}
     </div>
   );
 };
