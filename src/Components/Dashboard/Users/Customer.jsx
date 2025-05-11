@@ -1,49 +1,33 @@
-import { useState, useMemo, useEffect } from "react";
-
+import { useState, useMemo } from "react";
 import { SearchOutlined } from "@ant-design/icons";
-import { Input } from "antd";
-import DeleteUserModal from "../../UI/DeleteUserModal";
-import axios from "axios";
+import { Input, Spin } from "antd";
 import CustomerTable from "../../Tables/CustomerTable";
 import ViewCustomerModal from "../../UI/ViewCustomerModal";
+import { useAllUsersQuery } from "../../../Redux/api/userApi";
 
 export default function Customer() {
-  // eslint-disable-next-line no-unused-vars
-  // const { data: allUsers, loadingUser, refetch } = useAllUsersQuery();
-  // const userData = allUsers?.data;
-  // console.log(userData);
+  const { data: allUsers, loadingUser } = useAllUsersQuery();
+  const userData = allUsers?.data;
+  console.log(userData);
 
   const [searchText, setSearchText] = useState("");
   const [isViewCustomer, setIsViewCustomer] = useState(false);
-  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
 
-  const [customerData, setCustomerData] = useState([]);
-  const [loadingCustomer, setLoadingCustomer] = useState(false);
+  const customer = useMemo(() => {
+    return (
+      userData?.filter((user) => user.role?.toLowerCase() === "customer") || []
+    );
+  }, [userData]);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      setLoadingCustomer(true);
-      try {
-        const response = await axios.get("data/customerData.json");
-        console.log(response.data);
-        setCustomerData(response.data);
-      } catch (error) {
-        console.error("Error fetching landlord data", error);
-      } finally {
-        setLoadingCustomer(false);
-      }
-    };
-
-    fetchUserData();
-  }, []);
+  console.log("customer", customer);
 
   const filteredData = useMemo(() => {
-    if (!searchText) return customerData;
-    return customerData.filter((item) =>
-      item.name.toLowerCase().includes(searchText.toLowerCase())
+    if (!searchText) return customer;
+    return customer.filter((item) =>
+      item.fullName.toLowerCase().includes(searchText.toLowerCase())
     );
-  }, [customerData, searchText]);
+  }, [customer, searchText]);
 
   const onSearch = (value) => {
     setSearchText(value);
@@ -55,28 +39,17 @@ export default function Customer() {
     setIsViewCustomer(true);
   };
 
-  const showDeleteModal = (record) => {
-    setCurrentRecord(record);
-    setIsDeleteModalVisible(true);
-  };
-
-  const handleDelete = (data) => {
-    // Handle delete action here
-    console.log({ id: data?.id, data });
-    setIsDeleteModalVisible(false);
-  };
-
   const handleCancel = () => {
     setIsViewCustomer(false);
-    setIsDeleteModalVisible(false);
   };
 
-  // const handleBlock = (data) => {
-  //   console.log("Blocked User:", { id: data?.id, data: data });
-  //   setIsViewCustomer(false);
-  //   setIsViewBusiness(false);
-  // };
-
+  if (loadingUser) {
+    return (
+      <div>
+        <Spin size="large" />
+      </div>
+    );
+  }
   return (
     <div className="min-h-[90vh]">
       <div className="bg-[#FFFFFF] rounded">
@@ -101,22 +74,14 @@ export default function Customer() {
         <div className="px-2 lg:px-6">
           <CustomerTable
             data={filteredData}
-            loading={loadingCustomer}
+            loading={loadingUser}
             showCustomerViewModal={showCustomerViewModal}
-            showDeleteModal={showDeleteModal}
             pageSize={8}
           />
         </div>
 
         <ViewCustomerModal
           isViewCustomer={isViewCustomer}
-          handleCancel={handleCancel}
-          currentRecord={currentRecord}
-          // handleBlock={handleBlock}
-        />
-        <DeleteUserModal
-          isDeleteModalVisible={isDeleteModalVisible}
-          handleDelete={handleDelete}
           handleCancel={handleCancel}
           currentRecord={currentRecord}
         />

@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import { ConfigProvider, Modal, Table } from "antd";
-// import { getImageUrl } from "../../utils/baseUrl";
+import { Modal } from "antd";
+import { getImageUrl } from "../../utils/baseUrl";
 
 const ViewSellerModal = ({ isViewSeller, handleCancel, currentRecord }) => {
-  // const imageUrl = getImageUrl();
+  const imageUrl = getImageUrl();
 
   return (
     <Modal
@@ -22,17 +22,15 @@ const ViewSellerModal = ({ isViewSeller, handleCancel, currentRecord }) => {
       <div className="p-10">
         <div className="">
           <div className="flex justify-center items-center p-4 border-b">
-            {/* Avatar */}
             {currentRecord?.image && (
               <img
-                // src={`${imageUrl}/${currentRecord.image}`}
-                src={currentRecord?.image}
-                alt={currentRecord?.name}
+                src={`${imageUrl}/${currentRecord.image}`}
+                alt={currentRecord?.fullName}
                 className="w-14 h-14 sm:w-20  sm:h-20 rounded-lg mr-4"
               />
             )}
             <div className="text-xl sm:text-2xl font-bold">
-              {currentRecord?.name}
+              {currentRecord?.fullName}
             </div>
           </div>
 
@@ -40,92 +38,41 @@ const ViewSellerModal = ({ isViewSeller, handleCancel, currentRecord }) => {
             <div className="flex flex-col text-start gap-1 text-lg">
               {currentRecord?.email && (
                 <div className="sm:flex gap-1">
-                  <div className="font-bold">Email:</div>
+                  <div className="font-bold">Email :</div>
                   <div>{currentRecord?.email}</div>
                 </div>
               )}
-              {currentRecord?.contact && (
+              {currentRecord?.phone && (
                 <div className="sm:flex gap-1">
-                  <div className="font-bold">Contact number:</div>
-                  <div>{currentRecord?.contact?.phone}</div>
+                  <div className="font-bold">Contact :</div>
+                  <div>{currentRecord?.phone}</div>
                 </div>
               )}
               {currentRecord?.address && (
                 <div className="sm:flex gap-1">
-                  <div className="font-bold">Address:</div>
+                  <div className="font-bold">Address :</div>
+                  <div>{currentRecord?.address}</div>
+                </div>
+              )}
+              {currentRecord?.isActive && (
+                <div className="sm:flex gap-1">
+                  <div className="font-bold">Status :</div>
                   <div>
-                    {currentRecord?.address?.street},{" "}
-                    {currentRecord?.address?.city},{" "}
-                    {currentRecord?.address?.state},{" "}
-                    {currentRecord?.address?.zip}
+                    {currentRecord?.isActive ? (
+                      <p className="text-lg font-semibold text-green-600">
+                        Active
+                      </p>
+                    ) : (
+                      <p className="text-lg font-semibold text-red-600">
+                        Inactive
+                      </p>
+                    )}
                   </div>
                 </div>
               )}
             </div>
           </div>
-          {/* Display Owned Properties */}
-          {currentRecord?.products && currentRecord?.products.length > 0 && (
-            <div className="mt-5">
-              <h3 className="text-lg font-bold mb-2">Products:</h3>
-              <ConfigProvider
-                theme={{
-                  components: {
-                    Table: {
-                      padding: 5,
-                      fontSize: 14,
-                      headerBg: "#2774c2",
-                      headerColor: "rgba(255,255,255,0.88)",
-                    },
-                  },
-                }}
-              >
-                <Table
-                  bordered
-                  dataSource={currentRecord.products}
-                  columns={[
-                    {
-                      title: "Product Name",
-                      dataIndex: "name",
-                      key: "name",
-                      align: "center",
-                    },
-                    {
-                      title: "Product Type",
-                      dataIndex: "category",
-                      key: "category",
-                      align: "center",
-                    },
-                    {
-                      title: "Price",
-                      dataIndex: "price",
-                      key: "price",
-                      align: "center",
-                    },
-                    {
-                      title: "Unit",
-                      dataIndex: "unit",
-                      key: "unit",
-                      align: "center",
-                    },
-                    {
-                      title: "Stock",
-                      dataIndex: "stock",
-                      key: "stock",
-                      align: "center",
-                    },
-                  ]}
-                  rowKey="name"
-                />
-              </ConfigProvider>
-            </div>
-          )}
         </div>
-        {/* <button
-          onClick={() => handleBlock(currentRecord)}
-          className="bg-secondary-color text-primary-color py-3 text-xl font-semibold rounded-lg mt-8 w-full"
-        >
-          Block
-        </button> */}
       </div>
     </Modal>
   );

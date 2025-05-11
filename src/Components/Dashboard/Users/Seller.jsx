@@ -1,49 +1,35 @@
-import { useState, useMemo, useEffect } from "react";
-
+import { useState, useMemo } from "react";
 import { SearchOutlined } from "@ant-design/icons";
-import { Input } from "antd";
+import { Input, Spin } from "antd";
 import DeleteUserModal from "../../UI/DeleteUserModal";
-import axios from "axios";
 import SellerTable from "../../Tables/SellerTable";
 import ViewSellerModal from "../../UI/ViewSellerModal";
+import { useAllUsersQuery } from "../../../Redux/api/userApi";
 
 export default function Seller() {
-  // eslint-disable-next-line no-unused-vars
-  // const { data: allUsers, loadingUser, refetch } = useAllUsersQuery();
-  // const userData = allUsers?.data;
-  // console.log(userData);
+  const { data: allUsers, loadingUser } = useAllUsersQuery();
+  const userData = allUsers?.data;
+  console.log("userData", userData);
 
   const [searchText, setSearchText] = useState("");
   const [isViewSeller, setIsViewSeller] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
 
-  const [sellerData, setSellerData] = useState([]);
-  const [loadingSeller, setLoadingSeller] = useState(false);
+  const seller = useMemo(() => {
+    return (
+      userData?.filter((user) => user.role?.toLowerCase() === "seller") || []
+    );
+  }, [userData]);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      setLoadingSeller(true);
-      try {
-        const response = await axios.get("data/sellerData.json");
-        console.log(response.data);
-        setSellerData(response.data);
-      } catch (error) {
-        console.error("Error fetching landlord data", error);
-      } finally {
-        setLoadingSeller(false);
-      }
-    };
-
-    fetchUserData();
-  }, []);
+  console.log("seller", seller);
 
   const filteredData = useMemo(() => {
-    if (!searchText) return sellerData;
-    return sellerData.filter((item) =>
-      item.name.toLowerCase().includes(searchText.toLowerCase())
+    if (!searchText) return seller;
+    return seller.filter((item) =>
+      item.fullName.toLowerCase().includes(searchText.toLowerCase())
     );
-  }, [sellerData, searchText]);
+  }, [seller, searchText]);
 
   const onSearch = (value) => {
     setSearchText(value);
@@ -61,7 +47,6 @@ export default function Seller() {
   };
 
   const handleDelete = (data) => {
-    // Handle delete action here
     console.log({ id: data?.id, data });
     setIsDeleteModalVisible(false);
   };
@@ -71,11 +56,13 @@ export default function Seller() {
     setIsDeleteModalVisible(false);
   };
 
-  // const handleBlock = (data) => {
-  //   console.log("Blocked User:", { id: data?.id, data: data });
-  //   setIsViewCustomer(false);
-  //   setIsViewBusiness(false);
-  // };
+  if (loadingUser) {
+    return (
+      <div>
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-[90vh]">
@@ -101,7 +88,7 @@ export default function Seller() {
         <div className="px-2 lg:px-6">
           <SellerTable
             data={filteredData}
-            loading={loadingSeller}
+            loading={loadingUser}
             showViewSellerModal={showViewSellerModal}
             showDeleteModal={showDeleteModal}
             pageSize={8}
@@ -112,7 +99,6 @@ export default function Seller() {
           isViewSeller={isViewSeller}
           handleCancel={handleCancel}
           currentRecord={currentRecord}
-          // handleBlock={handleBlock}
         />
         <DeleteUserModal
           isDeleteModalVisible={isDeleteModalVisible}
