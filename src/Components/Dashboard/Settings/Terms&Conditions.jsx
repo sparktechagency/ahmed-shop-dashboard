@@ -1,71 +1,68 @@
-import { Button } from "antd";
+import { Button, Spin } from "antd";
 import JoditEditor from "jodit-react";
-import { useRef, useState } from "react";
-// import {
-//   // useAddSettingsMutation,
-//   useGetSettingsQuery,
-//   useUpdateSettingsMutation,
-// } from "../../Redux/api/settingsApi";
-// import { toast } from "sonner";
+import { useEffect, useRef, useState } from "react";
+
+import { toast } from "sonner";
+import {
+  useGetSettingsQuery,
+  useUpdateSettingsMutation,
+} from "../../../Redux/api/settingsApi";
 
 const TermsAndConditions = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
 
-  // const {
-  //   data: getSettingsData,
-  //   isLoading: isFetching,
-  //   error: fetchError,
-  //   refetch,
-  // } = useGetSettingsQuery();
-  // console.log(getSettingsData?.data?.aboutUs);
+  const {
+    data: getSettingsData,
+    isLoading: isFetching,
+    error: fetchError,
+    refetch,
+  } = useGetSettingsQuery();
+  console.log(getSettingsData?.data?.termsOfService);
 
-  // Mutations for adding and updating aboutUs
   // const [addSettings, { isLoading: isAdding }] = useAddSettingsMutation();
-  // const [updateSettings, { isLoading: isUpdating }] =
-  //   useUpdateSettingsMutation();
+  const [updateSettings, { isLoading: isUpdating }] =
+    useUpdateSettingsMutation();
 
-  // Load aboutUs data on component mount
-  // useEffect(() => {
-  //   if (getSettingsData?.data.aboutUs) {
-  //     setContent(getSettingsData.data.aboutUs);
-  //   }
-  // }, [getSettingsData]);
+  useEffect(() => {
+    if (getSettingsData?.data.termsOfService) {
+      setContent(getSettingsData.data.termsOfService);
+    }
+  }, [getSettingsData]);
 
   const handleOnSave = async () => {
-    // try {
-    //   await updateSettings({ aboutUs: content }).unwrap();
-    //   toast.success("aboutUs updated successfully!");
-    //   // if
-    //   // (getSettingsData?.data.aboutUs) { }
-    //   //  else {
-    //   //   // Add a new aboutUs if not existing
-    //   //   await addSettings({ aboutUs: content }).unwrap();
-    //   //   toast.success("aboutUs added successfully!");
-    //   // }
-    //   refetch(); // Refresh the data after save
-    // } catch (error) {
-    //   toast.error("Failed to save aboutUs. Please try again.");
-    //   console.error("Save error:", error);
-    // }
+    try {
+      await updateSettings({ termsOfService: content }).unwrap();
+      toast.success("Terms and Conditions updated successfully!");
+      // if
+      // (getSettingsData?.data.termsOfService) { }
+      //  else {
+      //   // Add a new Terms and Conditions if not existing
+      //   await addSettings({ termsOfService: content }).unwrap();
+      //   toast.success("Terms and Conditions added successfully!");
+      // }
+      refetch(); // Refresh the data after save
+    } catch (error) {
+      toast.error("Failed to save Terms and Conditions. Please try again.");
+      console.error("Save error:", error);
+    }
   };
 
-  // if (isFetching) {
-  //   return (
-  //     <div className="flex justify-center items-center h-screen">
-  //       <Spin size="large" tip="Loading aboutUs..." />
-  //     </div>
-  //   );
-  // }
+  if (isFetching || isUpdating) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spin size="large" tip="Loading Terms and Conditions..." />
+      </div>
+    );
+  }
 
-  // // Show error message if fetch fails
-  // if (fetchError) {
-  //   return (
-  //     <div className="text-white">
-  //       Error loading aboutUs. Please try again later.
-  //     </div>
-  //   );
-  // }
+  if (fetchError) {
+    return (
+      <div className="text-white">
+        Error loading Terms and Conditions. Please try again later.
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-[90vh] bg-[#cde5fd] rounded-lg py-1 px-4">
