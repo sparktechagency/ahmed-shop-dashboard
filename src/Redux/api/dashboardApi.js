@@ -2,9 +2,9 @@ import { baseApi } from "../baseApi";
 
 const dashboardApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    allCustomer: builder.query({
+    dashboardOverview: builder.query({
       query: () => ({
-        url: "/users/all-users-count",
+        url: "/users/dashboard-overview",
         method: "GET",
       }),
       providesTags: ["user"],
@@ -12,7 +12,7 @@ const dashboardApi = baseApi.injectEndpoints({
 
     incomeByYear: builder.query({
       query: (year) => ({
-        url: `/users/all-users-rasio?year=${year}`,
+        url: `/payment/all-income-rasio?year=${year}`,
         method: "GET",
       }),
       providesTags: ["income"],
@@ -37,7 +37,7 @@ const dashboardApi = baseApi.injectEndpoints({
 });
 
 export const {
-  useAllCustomerQuery,
+  useDashboardOverviewQuery,
   useIncomeByYearQuery,
   useIncomeByDaysQuery,
   useIncomeByHourQuery,
