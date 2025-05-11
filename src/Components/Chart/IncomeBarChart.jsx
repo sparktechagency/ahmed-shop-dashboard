@@ -8,38 +8,47 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-// import { useIncomeByYearQuery } from "../../Redux/api/dashboardApi";
 import { useEffect, useState } from "react";
-
-const generatedYearData = [
-  { year: 2018, income: 150000 },
-  { year: 2019, income: 180000 },
-  { year: 2020, income: 200000 },
-  { year: 2021, income: 220000 },
-  { year: 2022, income: 250000 },
-  { year: 2023, income: 270000 },
-];
+import { useIncomeByYearQuery } from "../../Redux/api/dashboardApi";
 
 const IncomeBarChart = ({ selectedYear }) => {
   console.log(selectedYear);
 
-  // const { data: incomeData, refetch } = useIncomeByYearQuery(selectedYear);
-  // const [chartData, setChartData] = useState([]);
-  // useEffect(() => {
-  //   if (incomeData) {
-  //     setChartData(incomeData?.data || []);
-  //   }
-  // }, [incomeData]);
+  const { data: incomeData, refetch } = useIncomeByYearQuery(selectedYear);
+  const income = incomeData?.data;
+  console.log("income", income);
+  const [chartData, setChartData] = useState([]);
 
-  // useEffect(() => {
-  //   refetch();
-  // }, [selectedYear, refetch]);
-
-  const [chartData, setChartData] = useState(generatedYearData);
+  // Month mapping (1 -> January, 2 -> February, ...)
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
   useEffect(() => {
-    setChartData(generatedYearData);
-  }, [selectedYear]);
+    if (incomeData) {
+      // Map the month number to month name in the data
+      const updatedData = incomeData?.data?.map((item) => ({
+        ...item,
+        monthName: monthNames[item.month - 1],
+      }));
+      setChartData(updatedData || []);
+    }
+  }, [incomeData]);
+
+  useEffect(() => {
+    refetch();
+  }, [selectedYear, refetch]);
 
   return (
     <div className="w-full">
@@ -49,12 +58,12 @@ const IncomeBarChart = ({ selectedYear }) => {
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         >
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
-          <XAxis dataKey="month" />
+          <XAxis dataKey="monthName" /> {/* Use the new monthName field */}
           <YAxis />
           <Tooltip />
           <Bar
             name="Income"
-            dataKey="income"
+            dataKey="totalIncome"
             fill="#2774c2"
             barSize={20}
             radius={[10, 10, 0, 0]}

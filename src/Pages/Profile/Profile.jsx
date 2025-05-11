@@ -1,16 +1,16 @@
 /* eslint-disable no-unused-vars */
 import { Form, Input, Typography } from "antd";
-// import profileImage from "/images/profileImage.png";
 import { EditOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-// import { useUserProfileQuery } from "../../Redux/api/userApi";
 import { useState } from "react";
 import { getImageUrl } from "../../utils/baseUrl";
 import { AllImages } from "../../../public/images/AllImages";
+import { useUserProfileQuery } from "../../Redux/api/userApi";
 
 const Profile = () => {
-  // const { data: userProfile, refetch } = useUserProfileQuery();
-  // console.log(userProfile);
+  const { data: userProfile, refetch } = useUserProfileQuery();
+  const profile = userProfile?.data;
+  console.log("userProfile", profile);
   const imageUrl = getImageUrl();
 
   const navigate = useNavigate();
@@ -19,32 +19,8 @@ const Profile = () => {
     email: "",
   });
 
-  // useEffect(() => {
-  //   if (userProfile?.data) {
-  //     const profileDataApi = userProfile.data;
-  //     console.log(profileDataApi);
-
-  //     setProfileData({
-  //       fullName: profileDataApi.fullName,
-  //       email: profileDataApi.email,
-  //       image: profileDataApi.image,
-  //       // phoneCode: profileDataApi.phoneCode || "BD",
-  //       address: profileDataApi.address,
-  //       phoneNumber: profileDataApi.phoneNumber,
-  //       role: profileDataApi.role || "Undefined",
-  //     });
-  //   }
-  // }, [userProfile]);
-
-  // useEffect(() => {
-  //   if (location.state?.updated) {
-  //     refetch();
-  //   }
-  // }, [location.state, refetch]);
-
   const handleEditClick = () => {
-    // navigate("edit-profile", { state: { profileData } });
-    navigate("edit-profile");
+    navigate("edit-profile", { state: { profileData } });
   };
 
   return (
@@ -52,12 +28,10 @@ const Profile = () => {
       <div className="py-10 text-base-color rounded-lg h-full w-full lg:w-[70%]">
         <div className="flex items-center justify-between">
           <div className="flex items-center justify-center gap-8">
-            {profileData?.image ? (
+            {profile?.image ? (
               <img
-                className="h-40 w-40 relative"
-                src={`${imageUrl}/${
-                  profileData.image
-                }?t=${new Date().getTime()}`}
+                className="size-32 rounded-3xl  relative"
+                src={`${imageUrl}/${profile.image}?t=${new Date().getTime()}`}
                 alt="Profile"
               />
             ) : (
@@ -68,9 +42,8 @@ const Profile = () => {
               />
             )}
 
-            <p className="text-5xl font-semibold">{profileData?.fullName}</p>
+            <p className="text-5xl font-semibold">{profile?.fullName}</p>
           </div>
-          {/* < to="edit-profile" className="hover:text-primary-color"> */}
           <button
             onClick={handleEditClick}
             className="bg-[#0080FF] text-white font-semibold px-5 py-3 rounded-lg hover:bg-[#2774C2]"
@@ -88,8 +61,7 @@ const Profile = () => {
             </Typography.Title>
             <Form.Item className="text-white ">
               <Input
-                // value={profileData?.email}
-                value="user@email.com"
+                value={profile?.email}
                 placeholder="Enter your email"
                 readOnly
                 className="cursor-not-allowed py-2 px-3 text-xl bg-site-color border !border-[#222021] text-base-color hover:bg-transparent hover:border-[#222021] focus:bg-transparent focus:border-[#222021]"
@@ -101,8 +73,7 @@ const Profile = () => {
             <Form.Item className="text-white">
               <Input
                 readOnly
-                value="The User"
-                // value={profileData?.fullName}
+                value={profile?.fullName}
                 placeholder="Enter your full name"
                 className="cursor-not-allowed py-2 px-3 text-xl bg-site-color border !border-[#222021] text-base-color hover:bg-transparent hover:border-[#222021] focus:bg-transparent focus:border-[#222021]"
               />
@@ -115,14 +86,14 @@ const Profile = () => {
                 <Form.Item className="text-white">
                   <Input
                     readOnly
-                    value={profileData.address}
+                    value={profile.address}
                     placeholder="Enter your contact number"
                     className="cursor-not-allowed py-2 px-3 text-xl bg-site-color border !border-input-color text-base-color hover:bg-transparent hover:border-secoundary-color focus:bg-transparent focus:border-secoundary-color"
                   />
                 </Form.Item>
               </>
             )}
-            {profileData?.phoneNumber && (
+            {profile?.phone && (
               <>
                 <Typography.Title level={5} style={{ color: "#222222" }}>
                   Contact Number
@@ -130,7 +101,7 @@ const Profile = () => {
                 <Form.Item className="text-white">
                   <Input
                     readOnly
-                    value={profileData?.phoneNumber}
+                    value={profile?.phone}
                     placeholder="Enter your contact number"
                     className="cursor-not-allowed py-2 px-3 text-xl bg-site-color border !border-input-color text-base-color hover:bg-transparent hover:border-secoundary-color focus:bg-transparent focus:border-secoundary-color"
                   />

@@ -1,66 +1,39 @@
-import { ConfigProvider, Select } from "antd";
-// import Area_Chart from "../Chart/AreaChart";
-// import { Link } from "react-router-dom";
-
+import { ConfigProvider, Select, Spin } from "antd";
 import { AllIcons } from "../../../public/images/AllImages";
-import { LiaHandHoldingUsdSolid } from "react-icons/lia";
 import { FaHouseChimneyUser } from "react-icons/fa6";
 import { FaLandmark } from "react-icons/fa";
-
-import { useState } from "react";
-
-// import ViewUserModal from "../UI/ViewUserModal";
+import { useMemo, useState } from "react";
 import IncomeBarChart from "../Chart/IncomeBarChart";
-// import { useAllCustomerQuery } from "../../Redux/api/dashboardApi";
-// import { useAllUsersQuery } from "../../Redux/api/userApi";
+import { useDashboardOverviewQuery } from "../../Redux/api/dashboardApi";
+import { useAllUsersQuery } from "../../Redux/api/userApi";
 
 const Dashboard = () => {
-  // const { data: allCustomer } = useAllCustomerQuery();
-  // eslint-disable-next-line no-unused-vars
-  // const { data: allUsers, loadingUser, refetch } = useAllUsersQuery();
+  const { data: dashboardOverview } = useDashboardOverviewQuery();
+  const dashboardData = dashboardOverview?.data;
+  console.log("dashboardData", dashboardData);
+  const { data: allUsers, loadingUser } = useAllUsersQuery();
   const [selectedYear, setSelectedYear] = useState("2025");
   // const [selectedHour, setSelectedHour] = useState("24hour");
   // const [selectedDays, setSelectedDays] = useState("7day");
 
-  // const userData = allUsers?.data;
-  // console.log(userData);
+  const userData = allUsers?.data;
+  console.log(userData);
 
-  // console.log(allCustomer?.data);
+  const customer = useMemo(() => {
+    return (
+      userData?.filter((user) => user.role?.toLowerCase() === "customer") || []
+    );
+  }, [userData]);
 
-  //* It's Use to Show Modal
-  // const [isViewModalVisible, setIsViewModalVisible] = useState(false);
+  console.log("customer", customer);
 
-  //* It's Use to Show Delete Modal
-  // const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
-
-  //* It's Use to Set Seclected User to delete and view
-  // const [currentRecord, setCurrentRecord] = useState(null);
-
-  // const showViewModal = (record) => {
-  //   setCurrentRecord(record);
-  //   // setIsViewModalVisible(true);
-  // };
-
-  // const showDeleteModal = (record) => {
-  //   setCurrentRecord(record);
-  //   setIsDeleteModalVisible(true);
-  // };
-
-  // const handleDelete = (data) => {
-  //   // Handle delete action here
-  //   console.log({ id: data?.id, userName: data?.userName });
-  //   setIsDeleteModalVisible(false);
-  // };
-
-  // const handleCancel = () => {
-  //   // setIsViewModalVisible(false);
-  //   setIsDeleteModalVisible(false);
-  // };
-
-  // const handleBlock = (data) => {
-  //   console.log("Blocked User:", { id: data?.id, userName: data?.userName });
-  //   setIsViewModalVisible(false);
-  // };
+  if (loadingUser) {
+    return (
+      <div>
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   return (
     <div className="w-full min-h-[90vh] px-1 sm:px-2 lg:px-2">
@@ -82,7 +55,7 @@ const Dashboard = () => {
                     Total Users
                   </p>
                   <p className="text-sm lg:text-base xl:text-3xl font-medium text-primary-color">
-                    {/* {allCustomer?.data?.allCustomerCount} */} 10
+                    {dashboardData?.allUserCount}
                   </p>
                 </div>
               </div>
@@ -90,15 +63,14 @@ const Dashboard = () => {
             <div className="flex gap-5 flex-wrap rounded-lg bg-[#2774c2] border border-[#808080] py-2 px-1 xl:p-5 items-center  flex-1">
               <div className="flex gap-2 xl:gap-4 items-center">
                 <div className="p-3  w-fit">
-                  {/* <img src={AllIcons.person} className="h-10 w-10" alt="" /> */}
-                  <FaHouseChimneyUser className="h-8 w-8 text-primary-color" />
+                  <FaHouseChimneyUser className="size-8 text-primary-color" />
                 </div>
                 <div className="text-start">
                   <p className="text-xs lg:text-sm xl:text-2xl text-primary-color mb-1">
-                    Total Landlord
+                    Total Seller
                   </p>
                   <p className="text-sm lg:text-base xl:text-3xl font-medium text-primary-color">
-                    {/* {allCustomer?.data?.allBusinessCount} */} 50
+                    {dashboardData?.totalSellerCount}
                   </p>
                 </div>
               </div>
@@ -106,31 +78,29 @@ const Dashboard = () => {
             <div className="flex gap-5 flex-wrap rounded-lg bg-[#2774c2] border border-[#808080] py-2 px-1 xl:p-5 items-center  flex-1">
               <div className="flex gap-2 xl:gap-4 items-center">
                 <div className="p-3  w-fit">
-                  {/* <img src={AllIcons.person} className="h-10 w-10" alt="" /> */}
-                  <LiaHandHoldingUsdSolid className="h-10 w-10 text-primary-color font-extrabold" />
+                  <FaHouseChimneyUser className="size-8 text-primary-color font-extrabold" />
+                </div>
+                <div className="text-start">
+                  <p className="text-xs lg:text-sm xl:text-2xl text-primary-color mb-1">
+                    Total Customer
+                  </p>
+                  <p className="text-sm lg:text-base xl:text-3xl font-medium text-primary-color">
+                    {customer.length}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="flex gap-5 flex-wrap rounded-lg bg-[#2774c2] border border-[#808080] py-2 px-1 xl:p-5 items-center  flex-1">
+              <div className="flex gap-2 xl:gap-4 items-center">
+                <div className="p-3  w-fit">
+                  <FaLandmark className="h-8 w-8 text-primary-color" />
                 </div>
                 <div className="text-start">
                   <p className="text-xs lg:text-sm xl:text-2xl text-primary-color mb-1">
                     Total Revenue
                   </p>
                   <p className="text-sm lg:text-base xl:text-3xl font-medium text-primary-color">
-                    {/* {allCustomer?.data?.allBusinessCount} */} $ 5000
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="flex gap-5 flex-wrap rounded-lg bg-[#2774c2] border border-[#808080] py-2 px-1 xl:p-5 items-center  flex-1">
-              <div className="flex gap-2 xl:gap-4 items-center">
-                <div className="p-3  w-fit">
-                  {/* <img src={AllIcons.person} className="h-10 w-10" alt="" /> */}
-                  <FaLandmark className="h-8 w-8 text-primary-color" />
-                </div>
-                <div className="text-start">
-                  <p className="text-xs lg:text-sm xl:text-2xl text-primary-color mb-1">
-                    Total Properties
-                  </p>
-                  <p className="text-sm lg:text-base xl:text-3xl font-medium text-primary-color">
-                    {/* {allCustomer?.data?.allBusinessCount} */} 20
+                    ${dashboardData?.totalRevinewCount}
                   </p>
                 </div>
               </div>
@@ -174,9 +144,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div>
-            
-          </div>
+          <div></div>
         </div>
       </div>
     </div>
