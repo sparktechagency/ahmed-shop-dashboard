@@ -1,70 +1,54 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Button,
   ConfigProvider,
   Input,
   Modal,
-  Space,
   Table,
   Tooltip,
-  message,
   Form,
   Upload,
+  Switch,
 } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
-import axios from "axios";
-import { GoEye } from "react-icons/go";
+import {
+  CheckOutlined,
+  CloseOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import { RiEdit2Fill } from "react-icons/ri";
+import {
+  useAllCategoryQuery,
+  useChangeCategoryStatusMutation,
+  useCreateCategoryMutation,
+} from "../../Redux/api/categoryApi";
+import { getImageUrl } from "../../utils/baseUrl";
+import { toast } from "sonner";
 
 const Category = () => {
-  const [categoryData, setCategoryData] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(null);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [newCategory, setNewCategory] = useState({
-    category_name: "",
-    description: "",
+    categoryName: "",
     image: "",
-    products: [],
   });
 
-  // Fetch category data (or replace with your actual API)
-  useEffect(() => {
-    const fetchCategoryData = async () => {
-      setLoading(true);
-      try {
-        // Simulating fetching category data, replace with your actual data source
-        const response = await axios.get("data/categoryData.json"); // Change the path
-        setCategoryData(response.data);
-      } catch (error) {
-        console.error("Error fetching category data", error);
-        message.error("Failed to load category data");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCategoryData();
-  }, []);
+  const { data: categoryData, loading, refetch } = useAllCategoryQuery();
+  const allCategory = categoryData?.data;
+  console.log("categoryData", allCategory);
 
-  // Filter categories based on search text
-  const filteredCategoryData = categoryData.filter((category) =>
-    category.category_name.toLowerCase().includes(searchText.toLowerCase())
-  );
+  const [addCategory] = useCreateCategoryMutation();
+  const [changeStatus] = useChangeCategoryStatusMutation();
+
+  const imageUrl = getImageUrl();
+
+  const filteredCategoryData =
+    allCategory &&
+    allCategory.filter((category) =>
+      category.name.toLowerCase().includes(searchText.toLowerCase())
+    );
 
   const handleSearch = (e) => {
     setSearchText(e.target.value);
-  };
-
-  const showCategoryDetailsModal = (record) => {
-    setSelectedCategory(record);
-    setIsModalVisible(true);
-  };
-
-  const handleModalClose = () => {
-    setIsModalVisible(false);
-    setSelectedCategory(null);
   };
 
   const showAddCategoryModal = () => {
@@ -74,48 +58,89 @@ const Category = () => {
   const handleAddCategoryCancel = () => {
     setIsAddModalVisible(false);
     setNewCategory({
-      category_name: "",
-      description: "",
+      categoryName: "",
       image: "",
-      products: [],
     });
-  };
-
-  const handleAddCategoryOk = () => {
-    setCategoryData([
-      ...categoryData,
-      { ...newCategory, category_id: Date.now() },
-    ]);
-    setIsAddModalVisible(false);
-    setNewCategory({
-      category_name: "",
-      description: "",
-      image: "",
-      products: [],
-    });
-    message.success("New category added successfully!");
   };
 
   const handleImageUpload = (file) => {
     const isImage = file.type.startsWith("image/");
     if (!isImage) {
-      message.error("You can only upload image files!");
+      toast.error("You can only upload image files!");
       return false;
     }
 
+    const displayImage = URL.createObjectURL(file);
+
     setNewCategory({
       ...newCategory,
-      image: URL.createObjectURL(file),
+      image: file,
+      imagePreview: displayImage,
     });
 
     return false;
   };
 
+  const handleAddCategoryOk = async () => {
+    try {
+      if (!newCategory.categoryName || !newCategory.image) {
+        toast.error("Category name and image are required!");
+        return;
+      }
+      const formData = new FormData();
+      formData.append("name", newCategory.categoryName);
+      formData.append("image", newCategory.image);
+
+      const response = await addCategory(formData).unwrap();
+
+      if (response?.success) {
+        toast.success("Category Added Successfully");
+        setIsAddModalVisible(false);
+        setNewCategory({
+          categoryName: "",
+          image: "",
+          imagePreview: "",
+        });
+        refetch();
+      } else {
+        toast.error("Failed");
+      }
+    } catch (error) {
+      console.log("Error Adding Category", error);
+      toast.error("Error adding category");
+    }
+  };
+
+  const handleChangeCategoryStatus = async (checked, categoryId) => {
+    console.log("id", categoryId);
+    try {
+      const categoryToUpdate = allCategory.find(
+        (category) => category._id === categoryId
+      );
+      const newStatus = !categoryToUpdate.isActive;
+      const response = await changeStatus({
+        id: categoryId,
+        data: { isActive: newStatus },
+      }).unwrap();
+
+      if (response?.success) {
+        console.log("response", response);
+        toast.success("Category Status Updated Successfully!");
+        refetch();
+      } else {
+        toast.error("Failed to update category status.");
+      }
+    } catch (error) {
+      console.log("Error", error);
+      toast.error("Error updating category status");
+    }
+  };
+
   const columns = [
     {
       title: "Category ID",
-      dataIndex: "category_id",
-      key: "category_id",
+      dataIndex: "_id",
+      key: "_id",
       render: (text) => <span>{text}</span>,
       align: "center",
     },
@@ -125,7 +150,7 @@ const Category = () => {
       key: "image",
       render: (record) => (
         <img
-          src={record}
+          src={`${imageUrl}/${record}`}
           alt="category"
           className="rounded-full size-12 object-cover mx-auto"
         />
@@ -134,80 +159,31 @@ const Category = () => {
     },
     {
       title: "Category Name",
-      dataIndex: "category_name",
-      key: "category_name",
+      dataIndex: "name",
+      key: "name",
       render: (text) => <span>{text}</span>,
       align: "center",
     },
     {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
-      render: (text) => <span>{text}</span>,
-      align: "center",
-    },
-    {
-      title: "Total Products",
-      dataIndex: "products",
-      key: "products",
-      render: (products) => (
-        <div>{products.length > 0 ? products.length : 0}</div>
-      ),
-      align: "center",
-    },
-    {
-      title: "Details",
+      title: "Action",
       key: "action",
       align: "center",
       render: (_, record) => (
-        <Space size="middle">
-          <Tooltip placement="right" title="View Details">
-            <Button
-              className="!p-0"
-              style={{
-                background: "#FFFFFF",
-                border: "none",
-                color: "#222222",
-              }}
-              onClick={() => showCategoryDetailsModal(record)}
-            >
-              <GoEye style={{ fontSize: "24px" }} />
-            </Button>
+        <div>
+          {console.log(record)}
+          <Tooltip placement="right" title="Change Status">
+            <Switch
+              size="medium"
+              checkedChildren={<CheckOutlined />}
+              unCheckedChildren={<CloseOutlined />}
+              checked={record.isActive}
+              onChange={(status) =>
+                handleChangeCategoryStatus(status, record._id)
+              }
+            ></Switch>
           </Tooltip>
-        </Space>
+        </div>
       ),
-    },
-  ];
-
-  // Columns for the product table inside the modal
-  const productColumns = [
-    {
-      title: "Product Name",
-      dataIndex: "product_name",
-      key: "product_name",
-      render: (text) => <span>{text}</span>,
-      align: "center",
-    },
-    {
-      title: "Price",
-      dataIndex: "price",
-      key: "price",
-      render: (text) => <span>${text.toFixed(2)}</span>,
-      align: "center",
-    },
-    {
-      title: "Stock",
-      dataIndex: "stock",
-      key: "stock",
-      render: (text) => <span>{text}</span>,
-      align: "center",
-    },
-    {
-      title: "Availability",
-      dataIndex: "availability",
-      key: "availability",
-      render: (text) => <span>{text}</span>,
-      align: "center",
     },
   ];
 
@@ -235,7 +211,7 @@ const Category = () => {
           <h1 className="text-3xl font-bold text-[#333]">Product Categories</h1>
           <div className="flex items-center gap-2">
             <Input
-              placeholder="Search Category Name"
+              placeholder="Search Category..."
               value={searchText}
               onChange={handleSearch}
               style={{ width: "100%", height: 40 }}
@@ -258,81 +234,14 @@ const Category = () => {
           pagination={{ pageSize: 5 }}
         />
 
-        {/* Modal for Category Details */}
-        <Modal
-          title={
-            <div className="">
-              <h2 className="text-secondary-color text-center text-xl underline">
-                Category Type -{" "}
-                <span className="font-semibold text-2xl">
-                  {selectedCategory?.category_name}
-                </span>
-              </h2>
-            </div>
-          }
-          visible={isModalVisible}
-          onCancel={handleModalClose}
-          footer={null}
-          width={800}
-          height={600}
-          centered
-        >
-          {selectedCategory && (
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center ">
-                <div>
-                  <p>
-                    Description:{" "}
-                    <span className="text-lg font-semibold">
-                      {selectedCategory.description}
-                    </span>
-                  </p>
-                  <p>
-                    Total Products :{" "}
-                    <span className="text-lg font-semibold">
-                      {selectedCategory.products.length}
-                    </span>
-                  </p>
-                </div>
-                <img
-                  src={selectedCategory.image}
-                  alt="category"
-                  className="rounded-full size-28 object-cover mx-auto"
-                />
-              </div>
-              <ConfigProvider
-                theme={{
-                  components: {
-                    Table: {
-                      headerBg: "#2774c2",
-                      headerColor: "rgba(255,255,255,0.88)",
-                      padding: 5,
-                      fontSize: 14,
-                    },
-                  },
-                }}
-              >
-                <Table
-                  columns={productColumns}
-                  dataSource={selectedCategory.products}
-                  pagination={false}
-                  rowKey="product_id"
-                />
-              </ConfigProvider>
-            </div>
-          )}
-        </Modal>
-
         {/* Add New Category Modal */}
         <ConfigProvider
           theme={{
             components: {
               Button: {
-                defaultBg: "rgb(16,111,245)",
-                defaultColor: "rgba(255,255,255,0.88)",
-                defaultHoverBg: "rgb(43,67,164)",
-                defaultHoverColor: "rgb(224,236,252)",
-                defaultHoverBorderColor: "rgb(195,222,255)",
+                colorPrimary: "#0080FF",
+                colorPrimaryHover: "#2774C2",
+                colorPrimaryActive: "rgb(62,62,62)",
               },
             },
           }}
@@ -348,54 +257,33 @@ const Category = () => {
             visible={isAddModalVisible}
             onCancel={handleAddCategoryCancel}
             onOk={handleAddCategoryOk}
-            width={600}
+            width={500}
           >
             <Form layout="vertical">
               <Form.Item
                 label="Category Name"
-                value={newCategory.category_name}
+                value={newCategory.categoryName}
                 onChange={(e) =>
                   setNewCategory({
                     ...newCategory,
-                    category_name: e.target.value,
+                    categoryName: e.target.value,
                   })
                 }
               >
                 <Input
-                  value={newCategory.category_name}
-                  className="h-10"
+                  value={newCategory.categoryName}
+                  className="h-10 w-2/3"
                   onChange={(e) =>
                     setNewCategory({
                       ...newCategory,
-                      category_name: e.target.value,
+                      categoryName: e.target.value,
                     })
                   }
                 />
               </Form.Item>
-              <Form.Item
-                label="Description"
-                value={newCategory.description}
-                onChange={(e) =>
-                  setNewCategory({
-                    ...newCategory,
-                    description: e.target.value,
-                  })
-                }
-              >
-                <Input
-                  value={newCategory.description}
-                  className="h-10"
-                  onChange={(e) =>
-                    setNewCategory({
-                      ...newCategory,
-                      description: e.target.value,
-                    })
-                  }
-                />
-              </Form.Item>{" "}
               <Form.Item label="Category Image">
                 <Upload
-                  showUploadList={false}
+                  showUploadList={true}
                   beforeUpload={handleImageUpload}
                   accept="image/*"
                 >
@@ -409,10 +297,10 @@ const Category = () => {
                   </ConfigProvider>
                 </Upload>
                 {/* Display uploaded image if exists */}
-                {newCategory.image && (
+                {newCategory.imagePreview && (
                   <div style={{ marginTop: 10 }}>
                     <img
-                      src={newCategory.image}
+                      src={newCategory.imagePreview}
                       alt="Category"
                       style={{
                         width: 100,
