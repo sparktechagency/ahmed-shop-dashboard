@@ -21,57 +21,27 @@ const CustomerTable = ({
     },
     {
       title: "Full Name",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "fullName",
+      key: "fullName",
       align: "center",
-      render: (text, record) => (
-        <div className="flex items-center justify-center">
-          <span>{text}</span>
-        </div>
-      ),
     },
     {
       title: "Email",
-      dataIndex: "contact",
+      dataIndex: "email",
       key: "email",
       align: "center",
-      render: (contact) => (
-        <div className="flex items-center justify-center">
-          <span>{contact.email}</span>
-        </div>
-      ),
     },
     {
       title: "Phone",
-      dataIndex: "contact",
+      dataIndex: "phone",
       key: "phone",
       align: "center",
-      render: (contact) => (
-        <div className="flex items-center justify-center">
-          <span>{contact.phone}</span>
-        </div>
-      ),
     },
     {
       title: "Address",
       dataIndex: "address",
       key: "address",
       align: "center",
-      render: (address) =>
-        `${address.street}, ${address.city}, ${address.state}, ${address.zip}`,
-    },
-    {
-      title: "Total Orders Value",
-      dataIndex: "totalOrderValue",
-      key: "totalOrderValue",
-      align: "center",
-      render: (_, record) => {
-        const totalValue = record.purchase_history.reduce(
-          (acc, order) => acc + order.total_order_value,
-          0
-        );
-        return `$${totalValue.toFixed(2)}`;
-      },
     },
     {
       title: "Details",
@@ -97,18 +67,6 @@ const CustomerTable = ({
     },
   ];
 
-  const formattedData = data.map((customer) => ({
-    id: customer.customer_id,
-    name: customer.name,
-    contact: customer.contact,
-    address: customer.address,
-    purchase_history: customer.purchase_history,
-    totalOrderValue: customer.purchase_history.reduce(
-      (acc, order) => acc + order.total_order_value,
-      0
-    ),
-  }));
-
   return (
     <div>
       <ConfigProvider
@@ -124,7 +82,7 @@ const CustomerTable = ({
       >
         <Table
           columns={columns}
-          dataSource={formattedData}
+          dataSource={data}
           loading={loading}
           pagination={pageSize > 0 ? { pageSize } : false}
           rowKey="id"

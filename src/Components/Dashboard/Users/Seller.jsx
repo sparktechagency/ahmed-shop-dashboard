@@ -7,8 +7,7 @@ import ViewSellerModal from "../../UI/ViewSellerModal";
 import { useAllUsersQuery } from "../../../Redux/api/userApi";
 
 export default function Seller() {
-  // eslint-disable-next-line no-unused-vars
-  const { data: allUsers, loadingUser, refetch } = useAllUsersQuery();
+  const { data: allUsers, loadingUser } = useAllUsersQuery();
   const userData = allUsers?.data;
   console.log("userData", userData);
 
@@ -17,7 +16,6 @@ export default function Seller() {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
 
-  // Filter sellers by role
   const seller = useMemo(() => {
     return (
       userData?.filter((user) => user.role?.toLowerCase() === "seller") || []
@@ -49,7 +47,6 @@ export default function Seller() {
   };
 
   const handleDelete = (data) => {
-    // Handle delete action here
     console.log({ id: data?.id, data });
     setIsDeleteModalVisible(false);
   };
