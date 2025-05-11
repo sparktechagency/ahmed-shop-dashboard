@@ -39,6 +39,7 @@ const Category = () => {
   const [addCategory] = useCreateCategoryMutation();
   const [changeStatus] = useChangeCategoryStatusMutation();
 
+
   const imageUrl = getImageUrl();
 
   const filteredCategoryData =
