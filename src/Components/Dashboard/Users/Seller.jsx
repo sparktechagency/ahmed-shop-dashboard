@@ -1,7 +1,6 @@
 import { useState, useMemo } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import { Input, Spin } from "antd";
-import DeleteUserModal from "../../UI/DeleteUserModal";
 import SellerTable from "../../Tables/SellerTable";
 import ViewSellerModal from "../../UI/ViewSellerModal";
 import { useAllUsersQuery } from "../../../Redux/api/userApi";
@@ -13,7 +12,6 @@ export default function Seller() {
 
   const [searchText, setSearchText] = useState("");
   const [isViewSeller, setIsViewSeller] = useState(false);
-  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
 
   const seller = useMemo(() => {
@@ -41,19 +39,8 @@ export default function Seller() {
     setIsViewSeller(true);
   };
 
-  const showDeleteModal = (record) => {
-    setCurrentRecord(record);
-    setIsDeleteModalVisible(true);
-  };
-
-  const handleDelete = (data) => {
-    console.log({ id: data?.id, data });
-    setIsDeleteModalVisible(false);
-  };
-
   const handleCancel = () => {
     setIsViewSeller(false);
-    setIsDeleteModalVisible(false);
   };
 
   if (loadingUser) {
@@ -90,19 +77,12 @@ export default function Seller() {
             data={filteredData}
             loading={loadingUser}
             showViewSellerModal={showViewSellerModal}
-            showDeleteModal={showDeleteModal}
             pageSize={8}
           />
         </div>
 
         <ViewSellerModal
           isViewSeller={isViewSeller}
-          handleCancel={handleCancel}
-          currentRecord={currentRecord}
-        />
-        <DeleteUserModal
-          isDeleteModalVisible={isDeleteModalVisible}
-          handleDelete={handleDelete}
           handleCancel={handleCancel}
           currentRecord={currentRecord}
         />
