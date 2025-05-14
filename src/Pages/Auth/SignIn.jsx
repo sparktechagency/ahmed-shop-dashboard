@@ -31,8 +31,11 @@ const SignIn = () => {
       }
     } catch (error) {
       console.error("Error user login:", error);
-      if (error.data) {
-        toast.error("Something went wrong while login users.");
+      if (error.data.message === "User not found") {
+        toast.error("User not found");
+      }
+      if (error.data.message === "Password does not match") {
+        toast.error("Password does not match");
       }
     }
   };
