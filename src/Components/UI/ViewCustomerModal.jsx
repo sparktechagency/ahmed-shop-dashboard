@@ -35,7 +35,12 @@ const ViewCustomerModal = ({ isViewCustomer, handleCancel, currentRecord }) => {
           </div>
 
           <div className="mt-5">
-            <div className="grid lg:grid-cols-2 text-start gap-4 text-lg">
+            <div className="flex flex-col text-start gap-4 text-lg">
+              {" "}
+              <div className="sm:flex gap-1">
+                <div className="font-bold">Customer ID:</div>
+                <div>{currentRecord?._id}</div>
+              </div>
               {currentRecord?.email && (
                 <div className="sm:flex gap-1">
                   <div className="font-bold">Email:</div>

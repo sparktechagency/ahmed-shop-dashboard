@@ -36,6 +36,10 @@ const ViewSellerModal = ({ isViewSeller, handleCancel, currentRecord }) => {
 
           <div className="mt-5">
             <div className="flex flex-col text-start gap-1 text-lg">
+              <div className="sm:flex gap-1">
+                <div className="font-bold">Seller ID :</div>
+                <div>{currentRecord?._id}</div>
+              </div>
               {currentRecord?.email && (
                 <div className="sm:flex gap-1">
                   <div className="font-bold">Email :</div>
