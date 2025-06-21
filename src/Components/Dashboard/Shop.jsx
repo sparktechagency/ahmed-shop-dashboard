@@ -13,6 +13,7 @@ import dayjs from "dayjs";
 import { useShopsQuery, useVerifyShopMutation } from "../../Redux/api/shopApi";
 import { getImageUrl } from "../../utils/baseUrl";
 import { toast } from "sonner";
+import { FaFilePdf } from "react-icons/fa";
 
 const Shop = () => {
   const [searchText, setSearchText] = useState("");
@@ -251,21 +252,61 @@ const Shop = () => {
             </div>
             <hr />
             <div className="flex flex-col gap-2 mt-5">
-              <p>
-                <strong>Shop Name:</strong> {selectedShop.name}
-              </p>
-              <p>
-                <strong>Seller Name:</strong> {selectedShop.sellerId.fullName}
-              </p>
-              <p>
-                <strong>Address:</strong> {selectedShop.sellerId.address}
-              </p>
-              <p>
-                <strong>Email:</strong> {selectedShop.sellerId.email}
-              </p>
-              <p>
-                <strong>Phone Number:</strong> {selectedShop.sellerId.phone}
-              </p>
+              <div className="flex gap-20 items-center">
+                <div className="flex flex-col items-start gap-2">
+                  <p>
+                    <strong>Shop Name:</strong> {selectedShop.name}
+                  </p>
+                  <p>
+                    <strong>Seller Name:</strong>{" "}
+                    {selectedShop.sellerId.fullName}
+                  </p>
+                  <p>
+                    <strong>Address:</strong> {selectedShop.sellerId.address}
+                  </p>
+                  <p>
+                    <strong>Email:</strong> {selectedShop.sellerId.email}
+                  </p>
+                  <p>
+                    <strong>Phone Number:</strong> {selectedShop.sellerId.phone}
+                  </p>
+                </div>
+                <div className="flex flex-col items-start gap-2">
+                  <p className="font-semibold">Files</p>
+                  <div className="flex gap-4 items-center justify-center">
+                    {selectedShop?.document &&
+                      (() => {
+                        const file = selectedShop.document;
+                        const fileUrl = `${imageUrl}/${file.replace(
+                          /\\/g,
+                          "/"
+                        )}`;
+                        const fileName = file
+                          .replace(/\\/g, "/")
+                          .split("/")
+                          .pop();
+                        const shortFileName =
+                          fileName.length > 15
+                            ? fileName.slice(0, 15) + "..."
+                            : fileName;
+
+                        return (
+                          <div className="flex flex-col items-center">
+                            <a
+                              href={fileUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-red-500 hover:text-red-700 underline flex items-center gap-2"
+                            >
+                              <FaFilePdf className="text-xl" />
+                              <p>{shortFileName}</p>
+                            </a>
+                          </div>
+                        );
+                      })()}
+                  </div>
+                </div>
+              </div>
               <p>
                 <strong>Description:</strong> {selectedShop.description}
               </p>
