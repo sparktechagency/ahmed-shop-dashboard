@@ -13,6 +13,7 @@ import { BsInfoSquareFill } from "react-icons/bs";
 import { MdEditNote } from "react-icons/md";
 import { MdPrivacyTip } from "react-icons/md";
 import { FaQuestionCircle } from "react-icons/fa";
+import { FaShop } from "react-icons/fa6";
 
 import {
   Link,
@@ -92,6 +93,15 @@ const DashboardLayout = () => {
       label: (
         <NavLink className="font-semibold" to="category">
           Category
+        </NavLink>
+      ),
+    },
+    {
+      key: "shop",
+      icon: <FaShop size={25} />,
+      label: (
+        <NavLink className="font-semibold" to="shop">
+          Shop
         </NavLink>
       ),
     },

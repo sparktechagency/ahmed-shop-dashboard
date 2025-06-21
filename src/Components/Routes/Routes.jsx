@@ -26,6 +26,7 @@ import Earnings from "../Dashboard/Earnings";
 import Faq from "../Dashboard/Settings/Faq";
 import Category from "../Dashboard/Category";
 import ProtectedRoute from "../../utils/ProtectedRoute";
+import Shop from "../Dashboard/Shop";
 
 //
 
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
           {
             path: "earnings",
             element: <Earnings />,
+          },
+          {
+            path: "shop",
+            element: <Shop />,
           },
           {
             path: "settings",
