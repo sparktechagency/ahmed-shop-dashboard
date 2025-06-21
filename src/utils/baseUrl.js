@@ -1,7 +1,9 @@
 export const getBaseUrl = () => {
-  return "http://10.0.70.35:8084/api/v1";
+  return "https://humayon5003.binarybards.online/api/v1";
+  // return "http://10.0.70.35:8084/api/v1";
 };
 
 export const getImageUrl = () => {
-  return "http://10.0.70.35:8084";
+  return "https://humayon5003.binarybards.online/";
+  // return "http://10.0.70.35:8084";
 };
